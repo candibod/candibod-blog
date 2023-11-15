@@ -3,7 +3,7 @@ title: "First-Blog-Test-Title"
 date: 2023-11-13
 layout: post
 author: jeevan
-categories: [Jekyll, tutorial]
+categories: [Jekyll, t]
 image: assets/images/2.jpg
 ---
 
@@ -16,3 +16,16 @@ image: assets/images/2.jpg
 An 1868 Prang catalogue would later claim that such “books in the shape of a regular paper Doll… originated with us”.
 
 The die cut has also been employed in the non-juvenile sphere as well, a recent example being Jonathan Safran Foer’s ambitious Tree of Codes.
+
+
+Install ruby
+-> Select devkit version
+https://rubyinstaller.org/downloads/
+
+Go to the project directory:
+
+Any modern distribution of Ruby comes with Bundler preinstalled by default.
+Bundle install
+
+Run the application:
+bundle exec jekyll serve

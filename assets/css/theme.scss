@@ -25,7 +25,7 @@ body {
   .container-lg,
   .container-md,
   .container-sm,
-  .container {
+  .nav-container {
     width: 90%;
     max-width: 90%;
     padding: 0 25px;
@@ -372,7 +372,8 @@ blockquote {
 }
 
 .card {
-  border: 0;
+  border: 1px solid #cbcbcb;
+  box-shadow: 3px 3px 8px 2px #939393;
 }
 .card .img-thumb {
   border-top-right-radius: 4px;
