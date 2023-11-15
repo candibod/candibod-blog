@@ -35,3 +35,11 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Local installed libraries & version lock files
+*.gem
+.bundle
+.jekyll-cache
+.sass-cache
+_site
+Gemfile.lock
