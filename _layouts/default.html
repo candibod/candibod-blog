@@ -26,7 +26,7 @@
 ================================================== -->
     <div class="navigation-wrap start-header start-style">
       <nav class="navbar navbar-expand-lg">
-        <div class="container">
+        <div class="container nav-container">
           <a class="navbar-brand text-dark font-weight-bold big d-flex align-items-center" href="{{site.baseurl}}/">
             {% if site.logo %}
             <img class="me-2" src="{{site.baseurl}}/{{site.logo}}" alt="logo" />
@@ -50,13 +50,15 @@
 
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto font-weight-bold d-flex align-items-center">
-              {% for item in site.data.menus.topmenu %}
               <li class="nav-item">
-                <a class="nav-link px-3 {% if item.class %}{{item.class}}{% endif %}" href="{% unless item.external %}{{site.baseurl}}/{% endunless %}{{item.url}}" alt="{{item.title}}"
-                  >{{item.title}}</a
-                >
+                <a class="nav-link px-3" href="" alt="Home">Home</a>
               </li>
-              {% endfor %}
+              <li class="nav-item">
+                <a class="nav-link px-3" href="https://candibod.in" alt="About">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-3" href="mailto:candibod.g1@gmail.com" alt="Contact">Contact</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -71,11 +73,15 @@
 ================================================== -->
     <footer class="footer container text-center">
       <ul class="p-0 mb-1 small">
-        {% for item in site.data.menus.footermenu %}
         <li>
-          <a href="{% unless item.external %}{{site.baseurl}}/{% endunless %}{{item.url}}" alt="{{item.title}}">{{item.title}}</a>
+          <a href="" alt="Home">Home</a>
         </li>
-        {% endfor %}
+        <li>
+          <a href="https://candibod.in" alt="About">About</a>
+        </li>
+        <li>
+          <a href="mailto:candibod.g1@gmail.com" alt="Contact">Contact</a>
+        </li>
       </ul>
       <div class="copyright small">Copyright © {{site.title}}. All rights reserved.</div>
     </footer>

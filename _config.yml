@@ -1,5 +1,6 @@
 title: "Candibod"
 email: candibod@skiff.com
+baseUrl: /
 timezone: UTC
 permalink: "/:title/"
 logo: "assets/images/logo.png"
