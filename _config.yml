@@ -2,11 +2,12 @@ title: "Candibod"
 email: candibod@skiff.com
 baseUrl: /
 timezone: UTC
-permalink: "/:title/"
-logo: "assets/images/logo.png"
-favicon: "assets/images/favicon.ico"
+permalink: "/:title"
+logo: "https://candibod-blog.s3.amazonaws.com/icon/icon-black-120.png"
+favicon: "https://candibod-blog.s3.amazonaws.com/icon/favicon-black.ico"
+default_blog_image: "https://candibod-blog.s3.amazonaws.com/assets/default.jpg"
 author: Jeevan
-paginate: 30
+paginate: 10
 locale: en_us
 lang: en_us
 feed_items: 4

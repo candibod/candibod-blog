@@ -4,7 +4,7 @@ date: 2023-11-13
 layout: post
 author: jeevan
 categories: [Jekyll, t]
-image: assets/images/2.jpg
+image: https://candibod-blog.s3.amazonaws.com/assets/2.jpg
 ---
 
 ## Sections
@@ -16,7 +16,6 @@ image: assets/images/2.jpg
 An 1868 Prang catalogue would later claim that such “books in the shape of a regular paper Doll… originated with us”.
 
 The die cut has also been employed in the non-juvenile sphere as well, a recent example being Jonathan Safran Foer’s ambitious Tree of Codes.
-
 
 Install ruby
 -> Select devkit version
