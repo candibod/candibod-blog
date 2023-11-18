@@ -2,10 +2,10 @@
 {% assign author = site.authors[post.author] %}
 <div class="card">
   <a href="{{ post.url | absolute_url }}">
-    <img class="rounded mb-2" src="{% if post.image %}{{ post.image }}{% else %}{{ site.default_blog_image }}{% endif %}" alt="{{ post.title }}" />
+    <img class="rounded" src="{% if post.image %}{{ post.image }}{% else %}{{ site.default_blog_image }}{% endif %}" alt="{{ post.title }}" />
   </a>
-  <div class="card-block ps-2 pb-2">
-    <h2 class="card-title h4 serif-font mb-2"><a href="{{ post.url | absolute_url }}">{{ post.title }}</a></h2>
+  <div class="card-block p-4">
+    <h2 class="card-title h4 serif-font mb-3"><a href="{{ post.url | absolute_url }}">{{ post.title }}</a></h2>
     <p class="card-text text-muted mb-1">{{ post.excerpt | strip_html | truncatewords:15 }}</p>
     <div class="metafooter">
       <div class="wrapfooter small d-flex align-items-center">

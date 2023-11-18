@@ -2,6 +2,7 @@
 title: "First-Blog-Test-Title"
 date: 2023-11-13
 layout: post
+featured: true
 author: jeevan
 categories: [Jekyll, t]
 image: https://candibod-blog.s3.amazonaws.com/assets/2.jpg
