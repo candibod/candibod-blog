@@ -41,15 +41,15 @@ post_class: post-template
 
             <!-- Post Date -->
             <p>
-            <small>
-                <span class="post-date"><time class="post-date" datetime="{{ page.date | date:"%Y-%m-%d" }}">{{ page.date | date_to_string }}</time></span>           
+                {% if page.author %}
+                <div class="mt-5 post-author">Written By {{ author.display_name }}</div>				
+                {% endif %}
+                <span class="post-date text-muted">
+                    <time class="post-date" datetime="{{ page.date | date:"%Y-%m-%d" }}">{{ page.date | date:"%b %-d, %Y" }}</time>
+                </span>           
                 {% if page.last_modified_at %}
                 (Updated: <time datetime="{{ page.last_modified_at | date_to_xmlschema }}" itemprop="dateModified">{{ page.last_modified_at | date: "%b %-d, %Y" }}</time>)
                 {% endif %}
-                {% if page.author %}				
-                <div class="row">By {{ author.display_name }}</div>				
-                {% endif %}
-            </small>
             </p>
             
             <!-- Prev/Next -->

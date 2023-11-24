@@ -1,12 +1,11 @@
 ---
-title: "First-Blog-Test-Title"
-date: 2023-11-13
+title: "Github Pages - Jekyll"
+date: 2023-11-23
 layout: post
-featured: true
 author: jeevan
-categories: [Jekyll, t]
-image: https://candibod-blog.s3.amazonaws.com/assets/2.jpg
 ---
+
+Navigate the seamless integration of Jekyll for dynamic and polished websites on GitHub Pages. Elevate your web presence with the concise guide
 
 ## Sections
 
