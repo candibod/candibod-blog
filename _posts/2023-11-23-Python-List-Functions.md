@@ -1,6 +1,6 @@
 ---
 title: "Python List Functions"
-date: 2023-11-13
+date: 2023-11-23
 layout: post
 author: jeevan
 featured: true
@@ -192,4 +192,28 @@ cars = ["vw", "ford", "kia"]
 cars.sort()
 print(cars)
 # ['ford', 'kia', 'vw']
+```
+
+## Python Double Colon (::) Syntax
+
+Here's what the syntax for the double colons looks like:\
+`collection[start:stop:step]`
+
+```python
+numbers = [1,2,3,4,5,6]
+
+print(numbers[::2])
+# [1, 3, 5]
+```
+
+Reverse a list
+
+```python
+cars = ["vw", "ford", "kia"]
+
+cars.reverse()
+
+# Syntax: cars[start:stop:step]
+cars[::-1]
+# ["kia", "ford", "vw"]
 ```
