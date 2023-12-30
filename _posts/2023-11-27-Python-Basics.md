@@ -1,6 +1,6 @@
 ---
 title: "Python Basics"
-date: 2023-11-13
+date: 2023-11-27
 layout: post
 author: jeevan
 categories: [python]
@@ -8,56 +8,114 @@ permalink: /python/:title
 published: false
 ---
 
-Common practices as per pep-8 standard
+# Python Quick Reference
 
-## Naming convention
+python program is given access to some of your computer's memory by the OS, that memory is used for the code of the program itself and the data that it uses. The operating system ensures that the program cannot read or write other memory locations without somehow getting permissions
 
-```python
-# Variable Names
-cars = ["vw", "kia"]
-car_companies = ["vw", "kia"]
+#### Q/A
 
-# Constants
-COLOR = "white"
-BG_COLOR = "black"
+- how much memory will it allocate?
+  - Note that the size and layout of an object is purely implementation-specific. CPython, for example, may use totally different internal data structures than IronPython. So the size of an object may vary from implementation to implementation.
+  ```python
+  > from sys import getsizeof
+  > a = 42
+  > getsizeof(a)
+  ```
+- what if we need more memory?
+  - Python will manage it
+- how to give access to other memory locations?
 
-# Function Names
-def get_cars(): pass
+Some languages like C/C++, plunk(change) and plunk the raw values in memory, keeping track of the size and types. Instead of handling such raw data values directly. python wraps each data value-booleans, integers, floats, strings, event large data structures, functions, and programs in memory as an object.
 
-# Class Names
-class Base:
-    pass
+In Python, an object is a chunk of data that contains at least the following:
 
-class BaseClass:
-    pass
-```
+- A type that defines what it can do (mentioned in table below)
+- A unique id to distinguish it from other objects
+- A value consistent with its type
+- A reference count that tracks how often this object is used
 
-Python runs on an interpreter system(No need to compile and convert into machine language program), meaning that code can be executed as soon as it is written. This means that prototyping can be very quick.
+## Types
 
-<br>
+| Name           | Type      | Mutable | Examples                              |
+| :------------- | :-------- | :------ | ------------------------------------- |
+| Boolean        | bool      | no      | True, False                           |
+| Integer        | int       | no      | 47.25000, 25_000                      |
+| Floating point | float     | no      | 3.14, 2.7e5                           |
+| Complex        | complex   | no      | 3j, 5 + 9j                            |
+| Text string    | str       | no      | 'alas', 'alack', '''a verse attack''' |
+| List           | list      | yes     | ['Winken', 'Blinked', 'Nod']          |
+| Tuple          | tuple     | no      | (2, 4, 8)                             |
+| Bytes          | bytes     | no      | b'ab\xff'                             |
+| ByteArray      | bytearray | yes     | bytearray(...)                        |
+| Set            | set       | yes     | set([3, 5, 7])                        |
+| Frozen Set     | frozenset | no      | frozenset(['Elas', 'Otto'])           |
+| Dictionary     | dict      | yes     | {'game': 'bingo', 'dog': 'dingo'}     |
 
-**Variables** are containers for storing data values. Variables do not need to be declared with any particular type, and can even change type after they have been set.
+Note: 2.7e5, 1.0e8
+
+### Mutability
+
+The type also determined whether the data value contained by the box can be changed(mutable) or is constant(immutable)
+
+Note: Python is strongly typed means that the type of an object does not change, even if its value is mutable
+
+## Variables
+
+Variables are containers for storing data values. Variables do not need to be declared with any particular type, and can even change type after they have been set.
+
+### Variables are names, not places
+
+Unlike programming languages like c, variables in python are just names.
+
+In `x = 3`, Assignment(=) does not copy a value, it just attaches a name(x) to the object(3).
 
 ```
 x = 4 # x is of type int
 x = "Sally" # x is now of type str
 ```
 
-<br>
-
-**Casting** is when you convert a variable value from one type to another
+### Example for behind the scenes
 
 ```python
-x = str(3)    # x will be '3'
-y = int(3)    # y will be 3
-z = float(3)  # z will be 3.0
+>>> y = 5
+>>> x = 12 - y
+>>> x
+7
 ```
 
-## Variable Names
+In this code snippet, Python did the following:
+
+- Created an integer object with the value 5
+- Made a variable y point to that 5 object
+- Incremented the reference count of the object with value 5
+- Created another integer object with the value 12
+- Subtracted the value of the object that y points to (5) from the value 12 in the (anonymous) object with that value
+- Assigned this value (7) to a new (so far, unnamed) integer object
+- Made the variable x point to this new object
+- Incremented the reference count of this new object that x points to
+- Looked up the value of the object that x points to (7) and printed it
+
+When an object’s reference count reaches zero, no names are pointing to it, so it doesn’t need to stick around. Python has a charmingly named garbage collector that reuses the memory of things that are no longer needed. In this case, we no longer need the objects with the values 5, 12, or 7, or the variables x and y. The Python garbage collector may choose to send them to object heaven or keep some around for performance reasons given that small integers tend to be used a lot.
+
+### Example of a mutable object behavior
+
+```python
+> a = [2, 4, 6]
+> b = a
+> print(a) # [2, 4, 6]
+> print(b) # [2, 4, 6]
+
+> a[0] = 99
+> print(a) # [99, 4, 6]
+> print(b) # [99, 4, 6]
+```
+
+### Variable Names
 
 - A variable name must start with a letter or the underscore character
 - A variable name cannot start with a number
-- A variable name can only contain alpha-numeric characters and underscores (A-z, 0-9, and \_ ). Variable names are case-sensitive (age, Age and AGE are three different variables)
+- A variable name can only contain alpha-numeric characters and underscores (A-z, 0-9, and \_ ).
+- Variable names are case-sensitive (age, Age and AGE are three different variables)
 
 | Pattern                                | Example     | Meaning                                                                                                                                                                                  |
 | :------------------------------------- | :---------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -69,7 +127,88 @@ z = float(3)  # z will be 3.0
 
 :information_source: Double underscores are often referred to as “dunders” in the Python community.
 
-## Python operators
+### Integer Operations
+
+| Description                  | Operator | Example  | Result |
+| :--------------------------- | :------- | :------- | ------ |
+| Floating point division      | /        | 7 / 2    | 3.5    |
+|                              |          | 10 / 2   | 5.0    |
+| Integer(truncating) division | //       | 7 / 2    | 3      |
+| Modulus(reminder)            | %        | 7 % 3    | 1      |
+| Exponentiation               | \*\*     | 3 \*\* 4 | 81     |
+
+Tip: Combination of arithmetic operators with assignment(=)
+
+```python
+> a -= 3 # a = a - 3
+> a += 3 # a = a + 3
+> a *= 3 # a = a * 3
+> a /= 3 # a = a / 3
+> a //= 3 # a = a // 3
+```
+
+### Bases
+
+We can express literal integers in three bases besides decimal with these integer prefixes:
+
+- 0b or 0B for binary (base 2)
+- 0o or 0O for octal (base 8)
+- 0x or 0X for hex (base 16)
+
+```python
+> 0b10 # 2
+> 0o10 # 8
+> 0x10 # 16
+
+> a = 65
+> bin(a) # '0b1000001'
+> oct(a) # '0o101'
+> hex(a) # '0x41'
+
+chr() converts an integer to its single-character string equivalent, ord() goes the other way
+> chr(65)  # 'A'
+> ord('A') # 65
+```
+
+### Type Conversions
+
+when you convert a data type to another, May also referred as **Casting**
+
+```python
+> int(True)  # 1
+> int(False) # 0
+
+> bool(1)    # True
+> bool(0)    # False
+
+> int(98.6)  # 98
+> int(1.0e4) # 10000
+
+Following will throw an error
+> int('98.6')
+> int('1.0e4')
+
+> bool(1.0)  # True
+> bool(0.0)  # False
+
+> int('99')         # 99
+> int('-23')        # -23
+> int('+12')        # 12
+> int('1_000_000')  # 1000000
+
+> int('10', 2)      # 2
+> int('10', 8)      # 8
+> int('10', 16)     # 16
+
+> float(3)          # 3.0
+> str(3)            # '3'
+```
+
+Q/A:
+
+- Max storage for int
+
+### Python operators
 
 | Type                 | Operators                                    | Description                                                                                                                 |
 | :------------------- | :------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- |
@@ -77,9 +216,49 @@ z = float(3)  # z will be 3.0
 | Assignment operators | `= += -= *= /= %= //= **= &= \|= ^= >>= <<=` | used to assign values to variables                                                                                          |
 | Comparison operators | `== != > < >= <=`                            | Used to compare two values                                                                                                  |
 | Logical operators    | `and` `or` `not`                             | used to combine conditional statements                                                                                      |
-| Identity operators   | `is` `is not`                                | used to compare the objects, not if they are equal, but if they are actually the same object, with the same memory location |
-| Membership operators | `in` `not in`                                | used to test if a sequence is presented in an object                                                                        |
+| Identity operators   | `is` , `is not`                              | used to compare the objects, not if they are equal, but if they are actually the same object, with the same memory location |
+| Membership operators | `in` , `not in`                              | used to test if a sequence is presented in an object                                                                        |
 | Bitwise operators    | `& \| ^ ~ << >>`                             | used to compare (binary) numbers                                                                                            |
+
+### What is True/False?
+
+A false value doesn't necessarily need to explicitly be a boolean False. For example. all the following are considered False.
+
+| Type    | Value |
+| :------ | :---- |
+| Boolean | False |
+| null    | None  |
+| Integer | 0     |
+| Float   | 0.0   |
+| String  | ''    |
+| List    | []    |
+| Tuple   | ()    |
+| dict    | {}    |
+| set     | set() |
+
+Anything else is considered True.
+
+### Walrus
+
+walrus operator: `name := expression`
+
+```python
+a = 1
+b = 3
+diff = a - b
+if diff >= 0:
+    print("A")
+else:
+    print("B")
+
+# Can be replaced with
+a = 1
+b = 3
+if diff:= a - b >= 0:
+    print("A")
+else:
+    print("B")
+```
 
 **List comprehension** offers a shorter syntax when you want to create a new list based on the values of an existing list.
 
@@ -225,6 +404,8 @@ class Student(Person):
 ```
 
 <br>
+
+Python runs on an interpreter system(No need to compile and convert into machine language program), meaning that code can be executed as soon as it is written. This means that prototyping can be very quick.
 
 | The ENDDDDD! |
 | ------------ |
