@@ -5,7 +5,7 @@ layout: post
 author: jeevan
 categories: [python]
 permalink: /python/:title
-published: false
+published: true
 ---
 
 # Python Quick Reference
@@ -201,7 +201,9 @@ Following will throw an error
 > int('10', 16)     # 16
 
 > float(3)          # 3.0
+
 > str(3)            # '3'
+> str(True)         # 'True'
 ```
 
 Q/A:
@@ -258,6 +260,250 @@ if diff:= a - b >= 0:
     print("A")
 else:
     print("B")
+```
+
+## Strings
+
+### Types of strings
+
+- f or F -> Formatting
+- r or R -> Raw String, used to prevent escape characters in string
+- fr -> Raw f-string
+- u -> Unicode string
+- b -> Bytes
+
+### String manipulations
+
+#### Combine by using **+**
+
+```python
+> a = 'Duck.'
+> b = 'Grey'
+> a + b         # 'Duck.Grey'
+> print(a + b)  # 'Duck. Grey'
+```
+
+#### Duplicate with **\***
+
+```python
+> start = 'Na ' * 4
+> start
+'Na Na Na Na '
+```
+
+#### Get a character with []
+
+Need to specify its offset inside square brackets after the strings name(0 , 1, so on). The last offset can be specified with -1.
+
+```python
+> letters = 'abcdef'
+> letters[0]   # a
+> letters[1]   # b
+> letters[-1]  # f
+```
+
+Since string are immutable we can't change a character of a string with the square brackets
+
+```python
+> name = 'Henny'
+> name[0] = 'P'
+ TypeError: 'str' object does not support item assignment
+
+# Instead we need to use string functions or slice
+> name.replace('H', 'P') # Penny
+> 'P' + name[1:]         # Penny
+```
+
+### Get a substring with a **slice**
+
+We can extract a substring from a string by using a slice. we can define a slice using square brackets `[start:stop:step]`
+
+You can omit some of these, the slice will include character from offset start to one before end:
+
+- [:] extracts the entire sequence from start to end.
+- [ start :] specifies from the start offset to the end.
+- [: end ] specifies from the beginning to the end offset minus 1.
+- [ start : end ] indicates from the start offset to the end offset minus 1.
+- [ start : end : step ] extracts from the start offset to the end offset minus 1, skipping characters by step.
+
+```python
+> letters = 'abcdefghijklmnopqrstuvwxyz'
+> letters[:]       # 'abcdefghijklmnopqrstuvwxyz'
+> letters[20:]     # 'uvwxyz'
+> letters[12:15]   # 'mno'
+> letters[-3:]     # 'xyz'
+> letters[18:-3]   # 'stuvw'
+> letters[-6:-2]   # 'uvwx'
+> letters[::7]     # 'ahov'
+> letters[4:20:3]  # 'ehknqt'
+> letters[19::4]   # 'tx'
+> letters[:21:5]   # 'afkpu'
+> letters[-1::-1]  # 'zyxwvutsrqponmlkjihgfedcba'
+> letters[::-1]    # 'zyxwvutsrqponmlkjihgfedcba'
+
+# A slice offset earlier than the beginning of a string is treated as 0, and one after the end is treated as -1
+> letters[-50:]    # 'abcdefghijklmnopqrstuvwxyz'
+> letters[-51:50]  # ''
+> letters[:70]     # 'abcdefghijklmnopqrstuvwxyz'
+> letters[70:71]   # ''
+```
+
+### Python built in functions
+
+#### len()
+
+```python
+> len(letters) # 26
+> empty = ''
+> len(empty)   # 0
+```
+
+#### split()
+
+Unlike len(), some functions are specific to strings. We can use split() function to break a string into a list of smaller strings based on some separator
+
+```python
+> tasks = 'get gloves,get mask,give cat vitamins,call ambulance'
+> tasks.split(',')  # ['get gloves', 'get mask', 'give cat vitamins', 'call ambulance']
+
+# If you don’t specify a separator, split() uses any sequence of white space characters—newlines, spaces, and tabs
+> tasks.split()     # ['get', 'gloves,get', 'mask,give', 'cat', 'vitamins,call', 'ambulance']
+```
+
+#### join()
+
+```python
+> crypto_list = ['Yeti', 'Bigfoot', 'Loch Ness Monster']
+> crypto_string = ', '.join(crypto_list)
+> print(crypto_string) # Yeti, Bigfoot, Loch Ness Monster
+```
+
+#### replace()
+
+You use replace() for simple substring substitution. Give it the old substring, the new one, and how many instances of the old substring to replace.
+It returns the changed string but does not modify the original string.
+
+```python
+> setup = "a duck goes into a bar..."
+> setup.replace('duck', 'marmoset')     # 'a marmoset goes into a bar...'
+> setup                                 # 'a duck goes into a bar...'
+
+# Change up to 100 of them:
+> setup.replace('a ', 'a famous ', 100) #'a famous duck goes into a famous bar...'
+```
+
+#### strip()
+
+It’s very common to strip leading or trailing “padding” characters from a string, especially spaces. The strip() functions shown here assume that you want to get rid of whitespace characters (' ', '\t', '\n') if you don’t give them an argument.
+
+```python
+> world = " earth "
+> world.strip()    # 'earth'
+> world.strip(' ') # 'earth'
+> world.lstrip()   # 'earth '
+> world.rstrip()   # ' earth'
+
+> blurt = "What the...!!?"
+> blurt.strip('.?!')  # 'What the'
+
+> import string
+> string.whitespace   # ' \t\n\r\x0b\x0c'
+> string.punctuation  # '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
+> blurt = "What the...!!?"
+> blurt.strip(string.punctuation) 'What the'
+
+> prospector = "What in tarnation ...??!!"
+> prospector.strip(string.whitespace + string.punctuation)  # 'What in tarnation'
+```
+
+#### Search and Select
+
+```python
+> poem = '''All that doth flow we cannot liquid name
+... Or else would fire and water be the same;
+... But that is liquid which is moist and wet
+... Fire that property can never get.
+... Then 'tis not cold that doth the fire put out
+... But 'tis the wet that makes it die, no doubt.'''
+
+# How many characters are in this poem? (Spaces and newlines are included in the count.)
+> len(poem)
+250
+
+# Does it start with the letters All?
+> poem.startswith('All')  # True
+
+# Does it end with That's all, folks!?
+> poem.endswith('That\'s all, folks!')  # False
+```
+
+Python has two methods (find() and index()) for finding the offset of a substring,
+and has two versions of each (starting from the beginning or the end). They work the
+same if the substring is found. If it isn’t, find() returns -1, and index() raises an
+exception.
+
+```python
+# the offset of the first occurrence of the word
+> word = 'the'
+> poem.find(word)
+73
+> poem.index(word)
+73
+
+# And the offset of the last occurrence:
+> poem.rfind(word)
+214
+> poem.rindex(word)
+214
+
+> word = "duck"
+> poem.find(word)   # -1
+> poem.index(word)  # ValueError: substring not found
+
+# How many times does the three-letter sequence the occur?
+> word = 'the'
+> poem.count(word)  # 3
+
+# Are all of the characters in the poem either letters or numbers?
+> poem.isalnum()  # False
+# Nope, there were some punctuation characters.
+```
+
+#### case
+
+```python
+> setup = 'a duck goes into a bar...'
+
+# Capitalize the first word:
+> setup.capitalize()  # 'A duck goes into a bar...'
+
+# Capitalize all the words:
+> setup.title()       # 'A Duck Goes Into A Bar...'
+
+# Convert all characters to uppercase:
+> setup.upper()       # 'A DUCK GOES INTO A BAR...'
+
+# Convert all characters to lowercase:
+> setup.lower()       # 'a duck goes into a bar...'
+
+# Swap uppercase and lowercase:
+> setup = 'A Duck Goes Into A Bar...'
+> setup.swapcase()    # 'a dUCK gOES iNTO a bAR...'
+```
+
+#### Formatting
+
+```python
+> thing = 'wereduck'
+> place = 'werepond'
+> f'The {thing} is in the {place}'  # 'The wereduck is in the werepond'
+> f'The {thing.capitalize()} is in the {place.rjust(20)}'  # 'The Wereduck is in the werepond'
+
+# f-strings use the same formatting language (width, padding, alignment) as new-style
+> f'The {thing:>20} is in the {place:.^20}'  # 'The wereduck is in the ......werepond......'
+> f'{thing =}, {place =}'  # thing = 'wereduck', place = 'werepond'
+> f'{thing[-4:] =}, {place.title() =}'  # thing[-4:] = 'duck', place.title() = 'Werepond'
+>>> f'{thing = :>4.4}'  # thing = 'were'
 ```
 
 **List comprehension** offers a shorter syntax when you want to create a new list based on the values of an existing list.
