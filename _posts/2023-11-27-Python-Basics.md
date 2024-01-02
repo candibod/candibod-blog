@@ -368,6 +368,9 @@ Unlike len(), some functions are specific to strings. We can use split() functio
 
 # If you don’t specify a separator, split() uses any sequence of white space characters—newlines, spaces, and tabs
 > tasks.split()     # ['get', 'gloves,get', 'mask,give', 'cat', 'vitamins,call', 'ambulance']
+
+> splitme = 'a/b//c/d///e'
+> splitme.split('/')  # ['a', 'b', '', 'c', 'd', '', '', 'e']
 ```
 
 #### join()
@@ -506,24 +509,446 @@ exception.
 >>> f'{thing = :>4.4}'  # thing = 'were'
 ```
 
-**List comprehension** offers a shorter syntax when you want to create a new list based on the values of an existing list.
+#### range()
 
-```
-newlist = [x for x in range(10)]
-newlist = [x for x in range(10) if x < 5]
-newlist = [x if x != "banana" else "orange" for x in fruits]
+The range() function returns a stream of numbers within a specified range. without first having to create and store a large data structure such as a ist or tuple. This lets you create huge ranges without using all the memory in your computer and crashing a program.
+
+syntax: `range(start, stop, step)`
+
+```python
+> for x in range(0, 3):
+>   print(x)
+# 0
+# 1
+# 2
+
+> list(range(0, 3))
+# [0, 1, 2]
 ```
 
-**Packing/Unpacking Tuples:**
+Q/A:
 
-```
-fruits = ("apple", "banana", "cherry", "strawberry") # Packing
-(green, yellow, red, white) = fruits # Unpacking
-(green, yellow, *red) = fruits # Unpacking
-(green, *tropic, red) = fruits # Unpacking
+- Does python store each character in a string in different objects & reuse them?
+  - https://stackoverflow.com/questions/57002606/is-string-internally-stored-as-individual-characters-each-character-in-memory-s
+
+## Tuples
+
+Tuples are immutable, when you assign elements to a tuple, it can't be changed
+
+```python
+# Create a tuple
+> empty_tuple = ()
+# ()
 ```
 
-<br>
+For creating a one element tuple we need to be careful & declare it with a comma
+
+```python
+> one_mark = 'grande',
+# ('grande',)
+
+> one_mark = ('grande',)
+# ('grande',)
+
+> one_mark = ('grande')
+# 'grande'
+# This declares the type as string
+```
+
+Assign more than one value
+
+```python
+> marx_table = 'grande', 'checo', 'marco'
+# ('grande', 'checo', 'marco')
+
+> marx_table = ('grande', 'checo', 'marco')
+# ('grande', 'checo', 'marco')
+```
+
+Tuple Packing/Unpacking
+
+```python
+> fruits = ("apple", "banana", "cherry", "strawberry") # Packing
+> green, yellow, red, white = fruits                   # Unpacking
+
+> a = '10'
+> b = '20'
+> a, b = b, a
+> print(a, b)  # '20', '10'
+
+> (green, yellow, *red) = fruits
+> green   # 'apple'
+> yellow  # 'banana'
+> red     # ['cherry', 'strawberry']
+
+> (green, *tropic, red) = fruits
+> green   # 'apple'
+> tropic  # ['banana', 'cherry']
+> red     # 'strawberry'
+```
+
+Convert a list to tuple
+
+```python
+> marx_list = ["apple", "banana", "cherry"]
+> tuple(marx_list)  # ("apple", "banana", "cherry")
+```
+
+### Tuple Manipulations
+
+```python
+# Combine tuples using +
+> ('grande', ) + ('chico', 'tree')
+# ('grande', 'chico', 'tree')
+
+# Duplicate items with *
+> ('yada',) * 3
+# ('yada', 'yada', 'yada')
+```
+
+## Lists
+
+Lists are good for keeping track of things by their order, especially when the order and contents might change. Unlike strings, lists are mutable. You can change a list in place, add new elements, and delete or replace existing elements. The same value can occur more than once in a list.
+
+```python
+# Creation of list
+> empty_list = []
+> empty_list = list()
+> weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+> big_birds = ['emu', 'ostrich', 'cassowary']
+> first_names = ['Graham', 'John', 'Terry', 'Terry', 'Michael']
+> leap_years = [2000, 2004, 2008]
+> randomness = ['Punxsatawney", {"groundhog": "Phil"}, "Feb. 2"}
+```
+
+### list()
+
+list() function also converts other iterable data types (such as tuples, string, sets, and dictionaries) to lists.
+
+```python
+> list('cat')
+# ['c', 'a', 't']
+
+> a_tuple = ('ready', 'fire', 'aim')
+> list(a_tuple)
+# ['ready', 'fire', 'aim']
+```
+
+#### Get items with list()
+
+```python
+> marxes = ['Groucho', 'Chico', 'Harpo']
+> marxes[0:2]   # ['Groucho', 'Chico']
+
+> marxes[::2]   # ['Groucho', 'Harpo']
+> marxes[::-2]  # ['Harpo', 'Groucho']
+
+# reverse a list:
+> marxes[::-1]  # ['Harpo', 'Chico', 'Groucho']
+
+# None of these slices changed the marxes list itself, because we didn’t assign them to marxes.
+# To reverse a list in place, use list.reverse():
+> marxes = ['Groucho', 'Chico', 'Harpo']
+> marxes.reverse()
+> marxes  # ['Harpo', 'Chico', 'Groucho']
+# The reverse() function changes the list but doesn’t return its value.
+```
+
+#### Add an Item to the End with append()
+
+The traditional way of adding items to a list is to append() them one by one to the end.
+
+```python
+> marxes = ['Groucho', 'Chico', 'Harpo']
+> marxes.append('Zeppo')
+> marxes  # ['Groucho', 'Chico', 'Harpo', 'Zeppo']
+```
+
+#### Add an Item by Oset with insert()
+
+The append() function adds items only to the end of the list. When you want to add an item before any offset in the list, use insert(). Offset 0 inserts at the beginning. An offset beyond the end of the list inserts at the end, like append(), so you don’t need to worry about Python throwing an exception:
+
+```python
+> marxes = ['Groucho', 'Chico', 'Harpo']
+> marxes.insert(2, 'Gummo')
+> marxes  # ['Groucho', 'Chico', 'Gummo', 'Harpo']
+
+> marxes.insert(10, 'Zeppo')
+> marxes  # ['Groucho', 'Chico', 'Gummo', 'Harpo', 'Zeppo']
+```
+
+#### Combine Lists by Using extend() or +
+
+You can merge one list into another by using extend().
+
+```python
+> marxes = ['Groucho', 'Chico', 'Harpo', 'Zeppo']
+> others = ['Gummo', 'Karl']
+> marxes.extend(others)
+> marxes  # ['Groucho', 'Chico', 'Harpo', 'Zeppo', 'Gummo', 'Karl']
+
+> marxes = ['Groucho', 'Chico', 'Harpo', 'Zeppo']
+> others = ['Gummo', 'Karl']
+> marxes += others
+> marxes  # ['Groucho', 'Chico', 'Harpo', 'Zeppo', 'Gummo', 'Karl']
+
+# If we had used append(), others would have been added as a single list item rather than merging its items:
+> marxes = ['Groucho', 'Chico', 'Harpo', 'Zeppo']
+> others = ['Gummo', 'Karl']
+> marxes.append(others)
+> marxes  # ['Groucho', 'Chico', 'Harpo', 'Zeppo', ['Gummo', 'Karl']]
+```
+
+#### Change Items with a Slice
+
+```python
+> numbers = [1, 2, 3, 4]
+> numbers[1:3] = [8, 9]
+> numbers  # [1, 8, 9, 4]
+
+> numbers = [1, 2, 3, 4]
+> numbers[1:3] = [7, 8, 9]
+> numbers  # [1, 7, 8, 9, 4]
+
+> numbers = [1, 2, 3, 4]
+> numbers[1:3] = []
+> numbers  # [1, 4]
+
+# Actually, the righthand thing doesn’t even need to be a list. Any Python iterable will do, separating its items and assigning them to list elements:
+> numbers = [1, 2, 3, 4]
+> numbers[1:3] = (98, 99, 100)
+> numbers  # [1, 98, 99, 100, 4]
+
+> numbers = [1, 2, 3, 4]
+> numbers[1:3] = 'wat?'
+> numbers  # [1, 'w', 'a', 't', '?', 4]
+```
+
+#### Delete an Item by Offset with del
+
+```python
+> marxes = ['Groucho', 'Chico', 'Harpo', 'Gummo', 'Karl']
+> marxes[-1]  # 'Karl'
+> del marxes[-1]
+> marxes  # ['Groucho', 'Chico', 'Harpo', 'Gummo']
+
+When you delete an item by its position in the list, the items that follow it move back to take the deleted item’s space, and the list’s length decreases by one.
+> marxes = ['Groucho', 'Chico', 'Harpo', 'Gummo']
+> del marxes[1]
+> marxes  # ['Groucho', 'Harpo', 'Gummo']
+```
+
+#### Delete an Item by Value with remove()
+
+If you’re not sure or don’t care where the item is in the list, use remove() to delete it by value. Goodbye, Groucho:
+
+```python
+> marxes = ['Groucho', 'Chico', 'Harpo']
+> marxes.remove('Groucho')
+> marxes  # ['Chico', 'Harpo']
+# If you had duplicate list items with the same value, remove() deletes only the first one it finds
+```
+
+#### Get an Item by Oset and Delete It with pop()
+
+You can get an item from a list and delete it from the list at the same time by using pop(). If you call pop() with an offset, it will return the item at that offset; with no argument, it uses -1.
+
+```python
+> marxes = ['Groucho', 'Chico', 'Harpo', 'Zeppo']
+> marxes.pop()   # 'Zeppo'
+> marxes         # ['Groucho', 'Chico', 'Harpo']
+> marxes.pop(1)  # 'Chico'
+> marxes         # ['Groucho', 'Harpo']
+```
+
+#### Delete All Items with clear()
+
+```python
+> work_quotes = ['Working hard?', 'Quick question!', 'Number one priorities!']
+> work_quotes  # ['Working hard?', 'Quick question!', 'Number one priorities!']
+> work_quotes.clear()
+> work_quotes  # []
+```
+
+#### Find an Item’s Offset by Value with index()
+
+```python
+> marxes = ['Groucho', 'Chico', 'Harpo', 'Zeppo']
+> marxes.index('Chico')  # 1
+
+# If the value is in the list more than once, only the offset of the first one is returned:
+> simpsons = ['Lisa', 'Bart', 'Marge', 'Homer', 'Bart']
+> simpsons.index('Bart')  # 1
+```
+
+#### Test for a Value with in
+
+```python
+> marxes = ['Groucho', 'Chico', 'Harpo', 'Zeppo']
+> 'Groucho' in marxes  # True
+> 'Bob' in marxes      # False
+
+# The same value may be in more than one position in the list. As long as it’s in there at least once, in will return True:
+> words = ['a', 'deer', 'a' 'female', 'deer']
+> 'deer' in words  # True
+```
+
+#### Count Occurrences of a Value with count()
+
+```python
+> marxes = ['Groucho', 'Chico', 'Harpo']
+> marxes.count('Harpo')  # 1
+> marxes.count('Bob')    # 0
+
+> snl_skit = ['cheeseburger', 'cheeseburger', 'cheeseburger']
+> snl_skit.count('cheeseburger')  # 3
+```
+
+#### Reorder Items with sort() or sorted()
+
+Python provides two functions:
+
+- The list method sort() sorts the list itself, in place.
+- The general function sorted() returns a sorted copy of the list.
+
+```python
+> marxes = ['Groucho', 'Chico', 'Harpo']
+> sorted_marxes = sorted(marxes)
+> sorted_marxes  # ['Chico', 'Groucho', 'Harpo']
+# sorted_marxes is a new list, and creating it did not change the original list:
+> marxes  # ['Groucho', 'Chico', 'Harpo']
+
+# But calling the list function sort() on the marxes list does change marxes:
+> marxes.sort()
+> marxes  # ['Chico', 'Groucho', 'Harpo']
+
+# mix of data types
+> numbers = [2, 1, 4.0, 3]
+> numbers.sort()
+> numbers  # [1, 2, 3, 4.0]
+
+# The default sort order is ascending, but you can add the argument reverse=True
+> numbers = [2, 1, 4.0, 3]
+> numbers.sort(reverse=True)
+> numbers  # [4.0, 3, 2, 1]
+```
+
+#### Copy with copy(), list(), or a Slice
+
+You can copy the values of a list to an independent, fresh list by using any of these methods:
+
+- The list copy() method
+- The list() conversion function
+- The list slice [:]
+
+```python
+>>> a = [1, 2, 3]
+>>> b = a.copy()
+>>> c = list(a)
+>>> d = a[:]
+```
+
+#### Copy Everything with deepcopy()
+
+The copy() function works well if the list values are all immutable. As you’ve seen before, mutable values (like lists, tuples, or dicts) are references. A change in the original or the copy would be reflected in both.
+
+```python
+> a = [1, 2, [8, 9]]
+> b = a.copy()
+> a[2][1] = 10
+> a  # [1, 2, [8, 10]]
+> b  # [1, 2, [8, 10]]
+```
+
+The value of a[2] is now a list, and its elements can be changed. All the list-copying methods we used were shallow. To fix this, we need to use the deepcopy() function:
+
+```python
+> import copy
+> a = [1, 2, [8, 9]]
+> b = copy.deepcopy(a)
+> a  # [1, 2, [8, 9]]
+> b  # [1, 2, [8, 9]]
+> a[2][1] = 10
+> a  # [1, 2, [8, 10]]
+> b  # [1, 2, [8, 9]]
+# deepcopy() can handle deeply nested lists, dictionaries, and other objects.
+```
+
+#### Iterate Multiple Sequences with zip()
+
+There’s one more nice iteration trick: iterating over multiple sequences in parallel by using the zip() function:
+
+```python
+> days = ['Monday', 'Tuesday', 'Wednesday']
+> fruits = ['banana', 'orange', 'peach']
+> drinks = ['coffee', 'tea', 'beer']
+> desserts = ['tiramisu', 'ice cream', 'pie', 'pudding']
+> for day, fruit, drink, dessert in zip(days, fruits, drinks, desserts):
+>  print(day, ": drink", drink, "- eat", fruit, "- enjoy", dessert)
+# Monday : drink coffee - eat banana - enjoy tiramisu
+# Tuesday : drink tea - eat orange - enjoy ice cream
+# Wednesday : drink beer - eat peach - enjoy pie
+```
+
+zip() stops when the shortest sequence is done.
+
+```python
+> english = 'Monday', 'Tuesday', 'Wednesday'
+> french = 'Lundi', 'Mardi', 'Mercredi'
+> list(zip(english, french))
+# [('Monday', 'Lundi'), ('Tuesday', 'Mardi'), ('Wednesday', 'Mercredi')]
+> dict(zip(english, french) )
+# {'Monday': 'Lundi', 'Tuesday': 'Mardi', 'Wednesday': 'Mercredi'}
+```
+
+#### List comprehension
+
+offers a shorter syntax when you want to create a new list based on the values of an existing list.
+`[expression for item in iterable]`
+
+```python
+> newlist = [x for x in range(10)]
+> newlist  # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+> number_list = [number-1 for number in range(1,6)]
+> number_list  # [0, 1, 2, 3, 4]
+
+> newlist = [x for x in range(10) if x < 5]
+> newlist  # [0, 1, 2, 3, 4]
+
+> newlist = [x if x % 2 == 0 else False for x in range(10)]
+> newlist  # [0, False, 2, False, 4, False, 6, False, 8, False]
+```
+
+```python
+> rows = range(1,3)
+> cols = range(1,3)
+> for row in rows:
+>  for col in cols:
+>    print(row, col)
+# 1 1
+# 1 2
+# 2 1
+# 2 2
+
+# Now, let’s use a comprehension and assign it to the variable cells
+> cells = [(row, col) for row in rows for col in cols]
+> for row, col in cells:
+>   print(row, col)
+# 1 1
+# 1 2
+# 2 1
+# 2 2
+```
+
+Note: del is a Python statement, not a list method you don’t say marxes[-1].del(). It’s sort of the reverse of assignment (=): it detaches a name from a Python object and can free up the object’s memory if that name were the last reference to it
+
+Tip: If you use append() to add new items to the end and pop() to remove them from the same end, you’ve implemented a data structure known as a LIFO (last in, first out) queue. This is more commonly known as a stack. pop(0) would create a FIFO (first in, first out) queue. These are useful when you want to collect data as they arrive and work with either the oldest first (FIFO) or the newest first (LIFO).
+
+Q/A:
+
+- is it okay to use del at the end of every function in python to free up space
+  - https://stackoverflow.com/questions/49065803/python-delete-objects-and-free-up-space
 
 **Parameters & Arguments**
 
