@@ -950,6 +950,213 @@ Q/A:
 - is it okay to use del at the end of every function in python to free up space
   - https://stackoverflow.com/questions/49065803/python-delete-objects-and-free-up-space
 
+## Dictionary
+
+```python
+> empty_dict = {}
+> acme_customer = {'first': 'Wile', 'middle': 'E', 'last': 'Coyote'}
+> acme_customer = dict(first="Wile", middle="E", last="Coyote")
+```
+
+Convert with dict()
+
+```python
+> lol = [ ['a', 'b'], ['c', 'd'], ['e', 'f'] ]
+> dict(lol)  # {'a': 'b', 'c': 'd', 'e': 'f'}
+
+> tos = ( 'ab', 'cd', 'ef' )
+> dict(tos)  # {'a': 'b', 'c': 'd', 'e': 'f'}
+```
+
+Remember that dictionary keys must be unique. That’s why we used last names for keys instead of first names here—two members of Monty Python have the first name 'Terry'! If you use a key more than once, the last value wins:
+
+```python
+> some_pythons = {
+>  'Graham': 'Chapman',
+>  'John': 'Cleese',
+>  'Eric': 'Idle',
+>  'Terry': 'Gilliam',
+>  'Michael': 'Palin',
+>  'Terry': 'Jones',
+>  }
+> some_pythons
+# {'Graham': 'Chapman', 'John': 'Cleese', 'Eric': 'Idle', 'Terry': 'Jones', 'Michael': 'Palin'}
+```
+
+#### Get an Item by [key] or with get()
+
+```python
+> some_pythons['John']  # 'Cleese'
+
+# If the key is not present in the dictionary, you’ll get an exception:
+> some_pythons['Groucho']
+# KeyError: 'Groucho'
+
+> 'Groucho' in some_pythons  # False
+
+> some_pythons.get('John')   # 'Cleese'
+> some_pythons.get('Groucho', 'Not a Python')  # 'Not a Python'
+
+# Otherwise, you get None (which displays nothing in the interactive interpreter):
+> some_pythons.get('Groucho')  #
+```
+
+#### Get All Keys with keys()
+
+```python
+> signals = {'green': 'go', 'yellow': 'go faster', 'red': 'smile for the camera'}
+> signals.keys()
+# dict_keys(['green', 'yellow', 'red'])
+```
+
+Note: In Python 2, keys() just returns a list. Python 3 returns dict_keys(), which is an iterable view of the keys. This is handy with large dictionaries because it doesn’t use the time and memory to create and store a list that you might not use. But often you actually do want a list. In Python 3, you need to call list() to convert a dict_keys object to a list.
+`list(signals.keys())  # ['green', 'yellow', 'red']`
+
+#### Get All Values with values()
+
+To obtain all the values in a dictionary, use values():
+
+```python
+> list( signals.values() )
+# ['go', 'go faster', 'smile for the camera']
+```
+
+#### Get All Key-Value Pairs with items()
+
+When you want to get all the key-value pairs from a dictionary, use the items()
+
+```python
+>>> list( signals.items() )
+# [('green', 'go'), ('yellow', 'go faster'), ('red', 'smile for the camera')]
+# Each key and value is returned as a tuple, such as ('green', 'go').
+```
+
+#### Combine Dictionaries with {**a, **b}
+
+Starting with Python 3.5, there’s a new way to merge dictionaries, using the \*\* unicorn glitter
+
+```python
+> first = {'a': 'agony', 'b': 'bliss'}
+> second = {'b': 'bagels', 'c': 'candy'}
+> {**first, **second}
+# {'a': 'agony', 'b': 'bagels', 'c': 'candy'}
+
+> third = {'d': 'donuts'}
+> {**first, **third, **second}
+# {'a': 'agony', 'b': 'bagels', 'd': 'donuts', 'c': 'candy'}
+```
+
+Note: These are shallow copies. use deepcopy() for full copies of the keys and values, with no connection to their origin dictionaries
+
+#### Combine Dictionaries with update()
+
+```python
+> first = {'a': 1, 'b': 2}
+> second = {'c': 3}
+> first.update(second)
+> first  # {'a': 1, 'b': 2, 'c': 3}
+
+> first = {'a': 1, 'b': 2}
+> second = {'b': 'platypus'}
+> first.update(second)
+> first  # {'a': 1, 'b': 'platypus'}
+```
+
+#### del & pop()
+
+```python
+> names = {'a': 'agony', 'b': 'bagels', 'c': 'candy'}
+> del names['b']
+> names  # {'a': 'agony', 'c': 'candy'}
+
+# Get an Item by Key and Delete It with pop()
+> pythons.pop('c')  # 'candy'
+> pythons.pop('d')  # KeyError: 'd'
+
+# But if you give pop() a second default argument (as with get()), all is well and the
+> pythons.pop('d', 'Hugo')  # 'Hugo'
+```
+
+#### clear()
+
+```python
+> pythons.clear()  # {}
+> pythons = {}     # {}
+```
+
+#### in
+
+```python
+> pythons = {'Chapman': 'Graham', 'Cleese': 'John'}
+> 'Chapman' in pythons  # True
+> 'Palin' in pythons    # False
+```
+
+#### copy()
+
+As with lists, if you make a change to a dictionary, it will be reflected in all the names that refer to it:
+
+```python
+> signals = {'green': 'go', 'yellow': 'go faster', 'red': 'smile for the camera'}
+> save_signals = signals
+> signals['blue'] = 'confuse everyone'
+> save_signals  # {'green': 'go', 'yellow': 'go faster', 'red': 'smile for the camera', 'blue': 'confuse everyone'}
+
+# To actually copy keys and values from a dictionary to another dictionary and avoid this, you can use copy():
+> signals = {'green': 'go', 'yellow': 'go faster', 'red': 'smile for the camera'}
+> original_signals = signals.copy()
+> signals['blue'] = 'confuse everyone'
+> signals           # {'green': 'go', 'yellow': 'go faster', 'red': 'smile for the camera', 'blue': 'confuse everyone'}
+> original_signals  # {'green': 'go', 'yellow': 'go faster', 'red': 'smile for the camera'}
+```
+
+This is a shallow copy, and works if the dictionary values are immutable (as they are in this case). If they aren’t, you need deepcopy().
+
+```python
+> signals = {'green': 'go', 'yellow': 'go faster', 'red': ['stop', 'smile']}
+> signals_copy = signals.copy()
+> signals['red'][1] = 'sweat'
+> signals       # {'green': 'go', 'yellow': 'go faster', 'red': ['stop', 'sweat']}
+> signals_copy  # {'green': 'go', 'yellow': 'go faster', 'red': ['stop', 'sweat']}
+
+# You get the usual change-by-either-name behavior. The copy() method copied the values as-is. The solution is deepcopy():
+> import copy
+> signals = {'green': 'go', 'yellow': 'go faster', 'red': ['stop', 'smile']}
+> signals_copy = copy.deepcopy(signals)
+> signals['red'][1] = 'sweat'
+> signals       # {'green': 'go', 'yellow': 'go faster', 'red': ['stop', 'sweat']}
+> signals_copy  # {'green': 'go', 'yellow': 'go faster', 'red': ['stop', 'smile']}
+```
+
+#### Iterate with for and in
+
+Iterating over a dictionary (or its keys() function) returns the keys.
+
+```python
+> accusation = {'room': 'ballroom', 'weapon': 'lead pipe', 'person': 'Col. Mustard'}
+> for card in accusation: # or, for card in accusation.keys():
+>  print(card)
+# room
+# weapon
+# person
+
+# To iterate over the values rather than the keys, you use the dictionary’s values()
+> for value in accusation.values():
+>  print(value)
+# ballroom
+# lead pipe
+# Col. Mustard
+
+# To return both the key and value as a tuple, you can use the items() function:
+> for item in accusation.items():
+>  print(item)
+# ('room', 'ballroom')
+# ('weapon', 'lead pipe')
+# ('person', 'Col. Mustard')
+> for card, contents in accusation.items():
+>  print(card, content)
+```
+
 **Parameters & Arguments**
 
 ```
