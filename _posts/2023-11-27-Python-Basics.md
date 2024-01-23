@@ -1157,9 +1157,92 @@ Iterating over a dictionary (or its keys() function) returns the keys.
 >  print(card, content)
 ```
 
-**Parameters & Arguments**
+#### Dictionary Comprehensions
 
+```python
+> word = 'letters'
+> letter_counts = {letter: word.count(letter) for letter in word}
+> letter_counts  # {'l': 1, 'e': 2, 't': 2, 'r': 1, 's': 1}
+
+# {key_expression : value_expression for expression in iterable if condition}
+> vowels = 'aeiou'
+> word = 'onomatopoeia'
+> vowel_counts = {letter: word.count(letter) for letter in set(word) if letter in vowels}
+> vowel_counts  # {'e': 1, 'i': 1, 'o': 4, 'a': 2}
 ```
+
+## Sets
+
+A set is like a dictionary with its values thrown away, leaving only the keys
+
+#### Create with set()
+
+```python
+> empty_set = set()
+> empty_set  # set()
+
+> even_numbers = {0, 2, 4, 6, 8}
+> even_numbers  # {0, 2, 4, 6, 8}
+```
+
+#### Convert with set()
+
+You can create a set from a list, string, tuple, or dictionary, discarding any duplicate values.
+
+```python
+> set( 'letters' )  # {'l', 'r', 's', 't', 'e'}
+
+> set(['Dasher', 'Dancer', 'Prancer', 'Mason-Dixon'])
+# {'Dancer', 'Dasher', 'Mason-Dixon', 'Prancer'}
+
+> set(('Ummagumma', 'Echoes', 'Atom Heart Mother'))
+# {'Ummagumma', 'Atom Heart Mother', 'Echoes'}
+
+> set({'apple': 'red', 'orange': 'orange', 'cherry': 'red'})
+# {'cherry', 'orange', 'apple'}
+```
+
+#### Add an Item & Delete an Item
+
+```python
+> s = set((1,2,3))
+> s.add(4)
+> s  # {1, 2, 3, 4}
+
+> s = set((1,2,3))
+> s.remove(3)
+> s  # {1, 2}
+```
+
+#### Combinations and Operators
+
+```python
+> bruss = {'vodka', 'kahlua'},
+> wruss = {'cream', 'kahlua', 'vodka'}
+
+> bruss & wruss  # {'kahlua', 'vodka'}
+> bruss.intersection(wruss)
+
+> bruss | wruss  # {'kahlua', 'vodka', 'cream'}
+> bruss.union(wruss)
+
+> wruss - bruss  # {'cream'}
+> wruss.difference(bruss)
+
+> bruss.issubset(wruss)  # True
+> wruss.issubset(bruss)  # False
+```
+
+## Functions
+
+A function can take any number and type of input parameters and return any number and type of output results.
+
+- Define it, with zero or more parameters
+- Call it, and get zero or more results
+
+#### Parameters & Arguments
+
+```python
 def func(foo, bar=None, **kwargs): # Parameters
     pass
 
