@@ -5,14 +5,41 @@ layout: post
 author: jeevan
 ---
 
-DSA Overview
+# DSA Overview
 
 ## Contents:
 
-1. [Types of DS](#DsTypes)
-2. How to Pick the right DS
-3. [Problem Solving Techniques](#PSTechniques)
-4. [Problem Solving Process](#PSProcess)
+1. Types of Asymptotic Notations (Big O)
+2. [Types of DS](#DsTypes)
+3. How to Pick the right DS
+4. [Problem Solving Techniques](#PSTechniques)
+5. [Problem Solving Process](#PSProcess)
+6. [Python Data Structures](#PythonDS)
+
+## Types of Asymptotic Notations
+
+### Theta - Θ
+
+Lower bound of an algorithm
+
+### Omega - Ω
+
+Average case complexity of an algorithm
+
+### Big-O - O
+
+Upper bound of an algorithm
+
+- Most Efficient/Constant time complexity
+  - A constant-time complexity is O(1)
+- Good
+  - A logarithmic complexity is Log(N)
+- Fair/Linear Time Complexity
+  - A linear time Complexity is O(N)
+- Bad
+  - A super-linear time complexity is O(N\*Log(N))
+- Most inefficient
+  - A quadratic-time Complexity is O(N^2) or O(N^k) or O(2^N) or O(N!)
 
 ## Types of Data Structures<a id="DsTypes">:</a>
 
@@ -73,6 +100,11 @@ DSA Overview
 - Carry out the plan and write the actual code.
 - Look back and possibly refactor your solution if it could be better.
 
+### If we got a requirement saying don't create a new data structure
+
+- We need to switch the elements inside the DS
+- We need to update the elements once those are traversed, if we don't use those elements again
+
 ## Top 5 Data Structures from 127 interviews:
 
 1. Graph
@@ -118,9 +150,134 @@ There are always exceptions to the rules but it's good to have a starting point
 
 ### Classification by Design Approaches : There are two approaches for designing an algorithm. these approaches include
 
-Top-Down Approach: In the top-down approach, a large problem is divided into small sub-problem. and keep repeating the process of decomposing problems until the complex problem is solved.
-Bottom-up Approach: The bottom-up approach is also known as the reverse of top-down approaches.
-In approach different, part of a complex program is solved using a programming language and then this is combined into a complete program.
+1. Top-Down Approach: In the top-down approach, a large problem is divided into small sub-problem. and keep repeating the process of decomposing problems until the complex problem is solved.
+2. Bottom-up Approach: The bottom-up approach is also known as the reverse of top-down approaches. In approach different, part of a complex program is solved using a programming language and then this is combined into a complete program.
+
+## Python Data Structures<a id="PythonDS">:</a>
+
+- Complexity?
+- Storage?
+- Search, Insertion/Deletion operations?
+
+### Array
+
+More memory efficient compared to list, since they are stored in continuous blocks of memory rather than using pointers
+
+**Note:** It can be only used, if all the elements in the array of the same data type
+
+```python
+import array
+
+demo_array = array.array('i', [1,2,3,4])
+
+# Inserting element
+demo_array.insert(1, 6)
+```
+
+### Lists
+
+Collection of data(Might not be of a single data type)
+
+```python
+# Creating a List
+demo_list = ['candibod', 'python', 'blog']
+
+# Creating a 2D List
+demo_2d_list = [['candibod', 'python'], ['blog']]
+
+# Last element of list
+demo_list[-1]
+```
+
+### Tuple
+
+Tuples are immutable
+
+```python
+# Creating a Tuple
+demo_tuple = ('Candibod', 'Python')
+
+demo_list = [1, 2, 3]
+demo_tuple_1 = tuple(demo_list)
+
+# Accessing element from last
+demo_tuple[-1]
+```
+
+### Sets
+
+- Compare performance with list?
+- How to access elements in a set?
+
+Python Set is an unordered collection of data that is mutable and does not allow any duplicate element. Used in this is Hashing
+
+```python
+# Creating a Set
+demo_set = set([1, 2, 'candibod'])
+
+# A frozen set - immutable
+frozen_set = frozenset(["1", "2", "candibod"])
+```
+
+### Dictionary (Hash Table)
+
+Python dictionary is like hash tables in any other language
+
+```python
+# Creating a Dictionary
+demo_dict = {'name': 'candibod', 'demo_list': [1, 2, 3, 4]}
+
+# Accessing a element using key
+demo_dict['name']
+
+# Accessing a element using get() method
+demo_dict.get(0)
+
+# creation using Dictionary comprehension
+myDict = {x: x**2 for x in [1,2,3,4,5]}
+# {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+```
+
+### Strings
+
+### Linked List
+
+- append - Time: O(1), Space: O(1)
+  - Add the element at the end of the linked list
+- prepend - Time: O(1), Space: O(1)
+  - Add the element at the beginning of the linked list
+- insert - Time: O(n), Space: O(1)
+  - Add the element at the particular index
+- get_value - Time: O(n), Space: O(1)
+  - Get the value based on the index
+- set_value - Time: O(n), Space: O(1)
+  - Update the value of the index
+- traversal - Time: O(n), Space: O(1)
+  - Loop through all the elements of the Linked list
+- search - Time: O(n), Space: O(1)
+  - Search for the value
+- pop_first - Time: O(1), Space: O(1)
+  - Pop the beginning element of the Linked list
+- pop - Time: O(n), Space: O(1)
+  - Pop the end element of the linked list
+- remove - Time: O(n), Space: O(1)
+  - remove element based on the index
+- delete_all - Time: O(1), Space: O(1)
+  - Delete all the elements of the Linked list
+
+### Stack
+
+### Queue
+
+### Heap
+
+### Graphs
+
+### Binary Tree
+
+### Binary Search Tree
+
+### Trie
 
 ## References
 
