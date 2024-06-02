@@ -15,14 +15,16 @@ python program is given access to some of your computer's memory by the OS, that
 #### Q/A
 
 - how much memory will it allocate?
-  - Note that the size and layout of an object is purely implementation-specific. CPython, for example, may use totally different internal data structures than IronPython. So the size of an object may vary from implementation to implementation.
-  ```python
-  > from sys import getsizeof
-  > a = 42
-  > getsizeof(a)
-  ```
+- Note that the size and layout of an object is purely implementation-specific. CPython, for example, may use totally different internal data structures than IronPython. So the size of an object may vary from implementation to implementation.
+
+```python
+> from sys import getsizeof
+> a = 42
+> getsizeof(a)
+```
+
 - what if we need more memory?
-  - Python will manage it
+- Python will manage it
 - how to give access to other memory locations?
 
 Some languages like C/C++, plunk(change) and plunk the raw values in memory, keeping track of the size and types. Instead of handling such raw data values directly. python wraps each data value-booleans, integers, floats, strings, event large data structures, functions, and programs in memory as an object.
@@ -77,9 +79,9 @@ x = "Sally" # x is now of type str
 ### Example for behind the scenes
 
 ```python
->>> y = 5
->>> x = 12 - y
->>> x
+> y = 5
+> x = 12 - y
+> x
 7
 ```
 
@@ -1240,6 +1242,12 @@ A function can take any number and type of input parameters and return any numbe
 - Define it, with zero or more parameters
 - Call it, and get zero or more results
 
+```python
+> def print_me():
+>   print('python')
+> print_me() # python
+```
+
 #### Parameters & Arguments
 
 ```python
@@ -1249,103 +1257,557 @@ def func(foo, bar=None, **kwargs): # Parameters
 func(42, bar=314, extra=somevar) # Arguments
 ```
 
-<br>
+##### Positional Arguments
 
-**Arbitrary Arguments, \*args**\
-If you do not know how many arguments that will be passed into your function, add a \* before the parameter name in the function definition. This way the function will receive a tuple of arguments
+```python
+> def menu(wine, entree, dessert):
+>   return {'wine': wine, 'entree': entree, 'dessert': dessert}
 
-```
-def my_function(*kids):
-  print("The youngest child is " + kids[2])
-
-my_function("Emil", "Tobias", "Linus")
+> menu('chardonnay', 'chicken', 'cake')
+# {'wine': 'chardonnay', 'entree': 'chicken', 'dessert': 'cake'}
 ```
 
-<br>
+##### Keyword Arguments
+
+```python
+> menu(entree='beef', dessert='bagel', wine='bordeaux')
+# {'wine': 'bordeaux', 'entree': 'beef', 'dessert': 'bagel'}
+```
+
+##### Mix of Positional and Keyword Arguments
+
+If you call a function with both positional and keyword arguments, the positional arguments need to come first.
+
+```python
+> menu('frontenac', dessert='flan', entree='fish')
+# {'wine': 'frontenac', 'entree': 'fish', 'dessert': 'flan'}
+```
+
+#### Default Parameter Values
+
+```python
+> def menu(wine, entree, dessert='pudding'):
+>   return {'wine': wine, 'entree': entree, 'dessert': dessert}
+
+> menu('chardonnay', 'chicken')
+# {'wine': 'chardonnay', 'entree': 'chicken', 'dessert': 'pudding'}
+
+> menu('dunkelfelder', 'duck', 'doughnut')
+# {'wine': 'dunkelfelder', 'entree': 'duck', 'dessert': 'doughnut'}
+```
+
+#### Explode/Gather Positional Arguments with \*
+
+**Arbitrary Arguments - \*args**\
+When used inside the function with a parameter, an asterisk groups a variable number of positional arguments into a single tuple of parameter values.
+
+```python
+> def print_args(*args):
+>   print('Positional tuple:', args)
+
+> print_args()
+# Positional tuple: ()
+
+> print_args(3, 2, 1, 'wait!', 'uh...')
+# Positional tuple: (3, 2, 1, 'wait!', 'uh...')
+```
+
+If you do not know how many arguments that will be passed into your function, add a \* before the parameter name in the function definition.
+
+```python
+> def print_more(required1, required2, *args):
+>   print('Need this one:', required1)
+>   print('Need this one too:', required2)
+>   print('All the rest:', args)
+
+> print_more('cap', 'gloves', 'scarf', 'monocle', 'mustache wax')
+# Need this one: cap
+# Need this one too: gloves
+# All the rest: ('scarf', 'monocle', 'mustache wax')
+```
+
+You can only use the \* syntax in a function call or definition:
+
+```python
+> print_args(2, 5, 7, 'x')
+# Positional tuple: (2, 5, 7, 'x')
+
+> args = (2,5,7,'x')
+> print_args(args)
+# Positional tuple: ((2, 5, 7, 'x'),)
+
+> print_args(*args)
+# Positional tuple: (2, 5, 7, 'x')
+
+> *args
+# File "<stdin>", line 1
+# SyntaxError: can't use starred expression here
+```
+
+#### Explode/Gather Keyword Arguments with \*\*
 
 **Arbitrary Keyword Arguments, \*\*kwargs**\
+
+You can use two asterisks (\*\*) to group keyword arguments into a dictionary, where the argument names are the keys, and their values are the corresponding dictionary values
+
+```python
+> def print_kwargs(**kwargs):
+>   print('Keyword arguments:', kwargs)
+
+> print_kwargs()
+# Keyword arguments: {}
+
+> print_kwargs(wine='merlot', entree='mutton', dessert='macaroon')
+# Keyword arguments:  {'dessert': 'macaroon', 'wine': 'merlot', 'entree': 'mutton'}
+```
+
 If you do not know how many keyword arguments that will be passed into your function, add two asterisk: \*\* before the parameter name in the function definition. This way the function will receive a dictionary of arguments.
 
-```
+```python
 def my_function(**kid):
   print("His last name is " + kid["lname"])
 
 my_function(fname = "Tobias", lname = "Refsnes")
 ```
 
-<br>
+Argument order is:
 
-**Python Lambda**\
+- Required positional arguments
+- Optional positional arguments (\*args)
+- Optional keyword arguments (\*\*kwargs)
+
+#### Docstrings
+
+documentation to a function definition
+
+```python
+> def echo(anything):
+>   'echo returns its input argument'
+>   return anything
+
+>>> help(echo)
+# Help on function echo in module __main__:
+# echo(anything)
+#  echo returns its input argument
+
+> print(echo.__doc__)
+# echo returns its input argument
+```
+
+#### Dunder
+
+Double underscores (aka dunder in Python-speak) are used in many places to name Python internal variables, because programmers are unlikely to use them in their own variable names
+
+#### Funtion as parameter
+
+since function is also an object in python, we can pass the function similar to a normal data type
+
+```python
+> def answer():
+>   print(42)
+
+> anwser()
+# 42
+
+> def run_something(func):
+>   func()
+
+> run_something(answer)
+# 42
+```
+
+```python
+> def add_args(arg1, arg2):
+>   print(arg1 + arg2)
+
+> def run_something_with_args(func, arg1, arg2):
+>   func(arg1, arg2)
+
+> run_something_with_args(add_args, 5, 9)
+# 14
+```
+
+#### Inner Functions
+
+An inner function can be useful when performing some complex task more than once within another function, to avoid loops or code duplication.
+
+```python
+> def outer(a, b):
+>   def inner(c, d):
+>     return c + d
+>   return inner(a, b)
+
+> outer(4, 7)
+# 11
+```
+
+#### Closures
+
+An inner function can act as a closure. This is a function that is dynamically generated by another function and can both change and remember the values of variables that were created outside the function
+
+```python
+> def knights2(saying):
+>   def inner2():
+>     return "We are the knights who say: '%s'" % saying
+>   return inner2
+
+> a = knights2('Duck')
+> b = knights2('Hasenpfeffer')
+
+> a()
+# "We are the knights who say: 'Duck'"
+> b()
+# "We are the knights who say: 'Hasenpfeffer'"
+```
+
+### Anonymous Functions
+
+#### Lambda
+
 A lambda function is a small anonymous function which can take any number of arguments, but can only have one expression.
 
-```
-x = lambda a : a + 10
-print(x(5))
-
-# The power of lambda is better shown when you use them as an anonymous function inside another function. function definition that takes one argument, and that argument will be multiplied with an unknown number
-
-def myfunc(n): # Example 2
-  return lambda a : a * n
-
-mydoubler = myfunc(2)
-mytripler = myfunc(3)
-
-print(mydoubler(11))
-print(mytripler(11))
+```python
+> x = lambda a : a + 10
+> print(x(5))
+# 15
 ```
 
-<br>
+The power of lambda is better shown when you use them as an anonymous function inside another function. function definition that takes one argument, and that argument will be multiplied with an unknown number
 
-**Classes & Objects**\
+```python
+> def myfunc(n):
+>   return lambda a : a * n
+
+> mydoubler = myfunc(2)
+> mytripler = myfunc(3)
+
+> print(mydoubler(11))
+# 121
+> print(mytripler(11))
+# 1331
+```
+
+#### Generators
+
+A generator is a Python sequence creation object. With it, you can iterate through potentially huge sequences without creating and storing the entire sequence in memory at once. Generators are often the source of data for iterators.
+
+Every time you iterate through a generator, it keeps track of where it was the last time it was called and returns the next value. This is different from a normal function, which has no memory of previous calls and always starts at its first line with the same state.
+
+```python
+> sum(range(1, 101))
+# 5050
+```
+
+##### Generator functions
+
+```python
+> def my_range(first=0, last=10, step=1):
+>   number = first
+>   while number < last:
+>     yield number
+>     number += step
+
+> ranger = my_range(1, 4)
+> ranger
+# <generator object my_range at 0x101a0a168>
+
+> for x in ranger:
+>   print(x)
+# 1
+# 2
+# 3
+
+# A generator can be run only once. Lists, sets, strings, and dictionaries exist in memory, but a generator creates its values on the fly and hands them out one at a time through an iterator. It doesn’t remember them, #so you can’t restart or back up a generator. If you try to iterate this generator again, you’ll find # that it’s tapped out:
+> for try_again in ranger:
+>   print(try_again)
+#
+```
+
+##### Generator Comprehensions
+
+It’s like a shorthand version of a generator function, doing the yield invisibly, and also returns a generator object
+
+```python
+> genobj = (pair for pair in zip(['a', 'b'], ['1', '2']))
+> for thing in genobj:
+>   print(thing)
+
+# ('a', '1')
+# ('b', '2')
+```
+
+#### Decorators
+
+A decorator is a function that takes one function as input and returns another function.
+
+Sometimes, you want to modify an existing function without changing its source code. A common example is adding a debugging statement to see what arguments were passed in.
+
+```python
+> def document_it(func):
+>   def new_function(*args, **kwargs):
+>     print('Running function:', func.__name__)
+>     print('Positional arguments:', args)
+>     print('Keyword arguments:', kwargs)
+>     result = func(*args, **kwargs)
+>     print('Result:', result)
+>     return result
+>   return new_function
+```
+
+```python
+> def add_ints(a, b):
+>   return a + b
+> add_ints(3, 5)
+# 8
+
+> cooler_add_ints = document_it(add_ints) # manual decorator assignment
+> cooler_add_ints(3, 5)
+# Running function: add_ints
+# Positional arguments: (3, 5)
+# Keyword arguments: {}
+# Result: 8
+# 8
+```
+
+As an alternative to the manual decorator we can add @decorator_name before the function that you want to decorate:
+
+```python
+> @document_it
+> def add_ints(a, b):
+>   return a + b
+```
+
+#### Namespaces and Scope
+
+Each function defines its own namespace
+
+The main part of a program defines the global namespace; thus, the variables in that namespace are global variables
+
+```python
+> animal = 'fruitbat'
+> def change_local():
+>   animal = 'wombat'
+>   print('inside change_local:', animal, id(animal))
+
+> change_local()
+# inside change_local: wombat 4330406160
+> animal
+# 'fruitbat'
+> id(animal)
+# 4330390832
+```
+
+```python
+> animal = 'fruitbat'
+> def change_and_print_global():
+>   global animal
+>   animal = 'wombat'
+>   print('inside change_and_print_global:', animal)
+
+> animal
+# 'fruitbat'
+> change_and_print_global()
+# inside change_and_print_global: wombat
+> animal
+# 'wombat'
+```
+
+##### locals & globals functions
+
+```python
+> animal = 'fruit'
+> def change_local():
+>   animal = 'wombat'
+>   print('locals:', locals())
+
+> animal
+# 'fruit'
+> change_local()
+# locals: {'animal': 'wombat'}
+> print('globals', globals())
+# globals {'__name__': '__main__',
+# '__doc__': None,
+# '__package__': None,
+# '__loader__': <class '_frozen_importlib.BuiltinImporter'>,
+# '__spec__': None,
+# '__annotations__': {},
+# '__builtins__': <module 'builtins' (built-in)>,
+# 'animal': 'fruit',
+# 'change_local': <function change_local at 0x000002B5211C1940>}
+```
+
+#### Uses of \_ and \_\_ in Names
+
+Names that begin and end with two underscores (\_\_) are reserved for use within Python, so you should not use them with your own variables.
+
+#### Recursion
+
+```python
+> def flatten(lol):
+>   for item in lol:
+>     if isinstance(item, list):
+>       for subitem in flatten(item):
+>         yield subitem
+>     else:
+>       yield item
+
+> lol = [1, 2, [3,4,5], [6,[7,8,9], []]]
+> flatten(lol)
+# <generator object flatten at 0x10509a750>
+> list(flatten(lol))
+# [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+# Updated in python3.3
+> def flatten(lol):
+>   for item in lol:
+>     if isinstance(item, list):
+>       yield from flatten(item)
+>     else:
+>       yield item
+
+> lol = [1, 2, [3,4,5], [6,[7,8,9], []]]
+> list(flatten(lol))
+# [1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+## Exceptions
+
+```python
+> short_list = [1, 2, 3]
+> try:
+>   short_list[5]
+> except:
+>   print('Need a position between 0 and', len(short_list)-1)
+# Need a position between 0 and 2
+```
+
+But we can use multiple exceptions & use a default one
+
+```python
+> while True:
+>   value = input('Position [q to quit]? ')
+>   if value == 'q':
+>     break
+>   try:
+>     position = int(value)
+>     print(short_list[position])
+>   except IndexError as err:
+>     print('Bad index:', position)
+>   except Exception as other:
+>     print('Something else broke:', other)
+# Position [q to quit]? 3
+# Bad index: 3
+# Position [q to quit]? 2
+# 3
+# Position [q to quit]? two
+# Something else broke: invalid literal for int() with base 10: 'two'
+```
+
+## Classes & Objects
+
 Python is an object oriented programming language. Almost everything in Python is an object, with its properties and methods. A Class is like an object constructor, or a "blueprint" for creating objects.
 
+An object is a custom data structure containing both data (variables, called attributes) and code (functions, called methods). you can have multiple objects (often referred to as instances) at the same time, each with potentially different attributes.
+
+```python
+> class Cat():
+>   pass
+
+>  a_cat = Cat()
 ```
-class Person:
-  # name and age are object properties
-  def __init__(self, name, age):
-    self.name = name
-    self.age = age
 
-  def myfunc(self): # Object Method
-    print("Hello my name is " + self.name)
+### Attributes
 
-p1 = Person("John", 36) # Create Object
-p1.myfunc()
+An attribute is a variable inside a class or object. During and after an object or class is created, you can assign attributes to it
 
-del p1.name # Delete Property
-del p1 # Delete object
+```python
+> a_cat.age = 3
+> a_cat.name = "Mr. Fuzzybuttons"
+
+> a_cat.age
+# 3
+> a_cat.name
+# 'Mr. Fuzzybuttons'
 ```
+
+### Methods
+
+A method is a function in a class or object
+
+#### Initialization
+
+If you want to assign object attributes at creation time, you need the special Python object initialization method \*\*init\*\*():
+
+```python
+# Without initialization
+> class Cat():
+>   pass
+
+> t1 = Cat()
+> t1.name = "test"
+> t1.age = 3
+> t1.name
+# 'test'
+
+# With initialization
+> class Cat1():
+>   def __init__(self, name, age):
+>     self.name = name
+>     self.age = age
+
+> t2 = Cat1("test", 3)
+> t2.name
+# 'test'
+
+> del p1.name # Delete Attribute
+> del p1 # Delete object
+```
+
+It’s not what some other languages would call a “constructor.” Python already constructed the object for you. Think of \*\*init\*\*() as an initializer
 
 The `self` parameter is a reference to the current instance of the class, and is used to access variables that belongs to the class. It does not have to be named `self` , you can call it whatever you like, but it has to be the first parameter of any function in the class
 
-<br>
+#### Python Inheritance
 
-**Python Inheritance**\
-Inheritance allows us to define a class that inherits all the methods and properties from another class. Parent class is the class being inherited from, also called base class. Child class is the class that inherits from another class, also called derived class.
+Inheritance allows us to define a class that inherits all the methods and properties from another class. Parent class is the class being inherited from, also called base/super class. Child class is the class that inherits from another class, also called derived/sub class.
 
-```
-class Person:
-  def __init__(self, fname, lname):
-    self.firstname = fname
-    self.lastname = lname
+```python
+> class Person:
+>   def __init__(self, fname, lname):
+>     self.firstname = fname
+>     self.lastname = lname
 
-  def printname(self):
-    print(self.firstname, self.lastname)
+> def printname(self):
+>   print(self.firstname, self.lastname)
 
-x = Person("John", "Doe")
-x.printname()
+> x = Person("John", "Doe")
+> x.printname()
+# "John", "Doe"
 
-class Student(Person):
-  pass # Use the pass keyword when you do not want to add any other properties or methods to the class.
+
+> class Student(Person):
+>   pass # Use the pass keyword when you do not want to add any other properties or methods to the class.
 
 # Now the Student class has the same properties and methods as the Person class.
-x = Student("Mike", "Olsen")
-x.printname()
+> y = Student("Mike", "Olsen")
+> y.printname()
+# "Mike", "Olsen"
 ```
 
-<br>
+##### Override a Method
 
-**Add the \_\_init\_\_() Function**\
+```python
+> class Student(Person):
+>   def printname(self):
+>     print(self.firstname + " - " + self.lastname)
+
+> z = Student("Mike", "Olsen")
+> z.printname()
+# "Mike - Olsen"
+```
+
+##### Override \_\_init\_\_() Function
+
 If We want to add the \_\_init\_\_() function to the child class (instead of the pass keyword). the child class will no longer inherit the parent's \_\_init\_\_() function. The child's \_\_init\_\_() function overrides the inheritance of the parent's \_\_init\_\_() function.
 
 To keep the inheritance of the parent's \_\_init\_\_() function, add a call to the parent's \_\_init\_\_() function:
@@ -1364,9 +1826,478 @@ class Student(Person):
     super().__init__(fname, lname)
 ```
 
-<br>
+#### Multiple Inheritance
 
-Python runs on an interpreter system(No need to compile and convert into machine language program), meaning that code can be executed as soon as it is written. This means that prototyping can be very quick.
+Inheritance in Python depends on method resolution order. Each Python class has a special method called mro() that returns a list of the classes that would be visited to find a method or attribute for an object of that class. A similar attribute, called \_\_mro\_\_, is a tuple of those classes
 
-| The ENDDDDD! |
-| ------------ |
+```python
+> class Animal:
+>   def says(self):
+>     return 'I speak!'
+
+> class Horse(Animal):
+>   def says(self):
+>     return 'Neigh!'
+
+> class Donkey(Animal):
+>   def says(self):
+>     return 'Hee-haw!'
+
+> class Mule(Donkey, Horse):
+>   pass
+
+> class Hinny(Horse, Donkey):
+>   pass
+
+> mule = Mule()
+> hinny = Hinny()
+> mule.says()
+# 'hee-haw'
+> hinny.says()
+# 'neigh'
+```
+
+##### Mixins
+
+The difference is subtle, but in the above examples, the mixin classes weren't made to stand on their own. In more traditional multiple inheritance, the AuthenticationMixin (for example) would probably be something more like Authenticator. That is, the class would probably be designed to stand on its own.
+
+```python
+> class Request(BaseRequest):
+>    pass
+
+# If I want to add accept header support, I would make that
+> from werkzeug import BaseRequest, AcceptMixin
+> class Request(AcceptMixin, BaseRequest):
+>    pass
+
+# If I wanted to make a request object that supports accept headers, etags, authentication, and user agent support, I could do this:
+> from werkzeug import BaseRequest, AcceptMixin, ETagRequestMixin, UserAgentMixin, AuthenticationMixin
+> class Request(AcceptMixin, ETagRequestMixin, UserAgentMixin, AuthenticationMixin, BaseRequest):
+>    pass
+```
+
+### Attribute Access
+
+object attributes and methods are public
+
+#### Direct Access
+
+```python
+> class Duck:
+>   def __init__(self, input_name):
+>     self.name = input_name
+
+> fowl = Duck('Daffy')
+> fowl.name
+# 'Daffy'
+> fowl.name = 'Daphne'
+> fowl.name
+# 'Daphne'
+```
+
+#### Getters and Setters
+
+Python doesn’t have private attributes, but you can write getters and setters with obfuscated attribute names to get a little privacy
+
+By default, no one knows that "hidden_name" attribute exists inside the class
+
+```python
+> class Duck():
+>   def __init__(self, input_name):
+>     self.hidden_name = input_name
+>   def get_name(self):
+>     return self.hidden_name
+>   def set_name(self, input_name):
+>     self.hidden_name = input_name
+
+> don = Duck('Donald')
+> don.get_name()
+# 'Donald'
+> don.set_name('Donna')
+> don.get_name()
+# 'Donna'
+```
+
+#### Properties for Attribute Access
+
+The Pythonic solution for attribute privacy is to use properties.
+
+```python
+> class Duck():
+>   def __init__(self, input_name):
+>     self.hidden_name = input_name
+>   def get_name(self):
+>     return self.hidden_name
+>   def set_name(self, input_name):
+>     self.hidden_name = input_name
+>   name = property(get_name, set_name)
+
+> class Duck1():
+>   def __init__(self, input_name):
+>     self.hidden_name = input_name
+>   @property
+>   def name(self):
+>     return self.hidden_name
+>   @name.setter
+>   def name(self, input_name):
+>     self.hidden_name = input_name
+
+> fowl = Duck('Howard')
+> fowl.name
+# 'Howard'
+> fowl.name = 'Donald'
+> fowl.name
+# 'Donald'
+```
+
+#### Properties for Computed Values
+
+A property can return a computed value
+
+```python
+> class Circle():
+>   def __init__(self, radius):
+>     self.radius = radius
+>   @property
+>   def diameter(self):
+>     return 2 * self.radius
+
+> c = Circle(5)
+> c.diameter()
+# 10
+> c.diameter
+# 10
+```
+
+#### Name Mangling for Privacy
+
+Python has a naming convention for attributes that should not be visible outside of their class definition: begin with two underscores (\_\_).
+
+```python
+> class Duck():
+>   def __init__(self, input_name):
+>     self.__name = input_name
+>   @property
+>   def name(self):
+>     print('inside the getter')
+>     return self.__name
+>   @name.setter
+>   def name(self, input_name):
+>     print('inside the setter')
+>     self.__name = input_name
+
+> fowl = Duck('Howard')
+> fowl.name
+# inside the getter
+# 'Howard'
+> fowl.name = 'Donald'
+# inside the setter
+> fowl.name
+# inside the getter
+# 'Donald'
+
+> fowl.__name
+# Traceback (most recent call last):
+# File "<stdin>", line 1, in <module>
+# AttributeError: 'Duck' object has no attribute '__name'
+```
+
+This naming convention doesn’t make it completely private, but Python does mangle the attribute name to make it unlikely for external code to stumble upon it.
+
+```python
+> fowl._Duck__name
+# 'Donald'
+```
+
+Notice that it didn’t print inside the getter. Although this isn’t perfect protection, name mangling discourages accidental or intentional direct access to the attribute.
+
+#### Class and Object Attributes
+
+You can assign attributes to classes, and they’ll be inherited by their child objects. But if you change the value of the attribute in the child object, it doesn’t affect the class attributeIf you change the class attribute later, it won’t affect existing child objects. But it will affect new ones:
+
+```python
+> class Fruit:
+>   color = 'red'
+> blueberry = Fruit()
+> Fruit.color
+# 'red'
+> blueberry.color
+# 'red'
+> blueberry.color = 'blue'
+> blueberry.color
+# 'blue'
+> Fruit.color
+# 'red'
+> Fruit.color = 'orange'
+> Fruit.color
+# 'orange'
+> blueberry.color
+# 'blue'
+> new_fruit = Fruit()
+> new_fruit.color
+# 'orange'
+```
+
+#### Method Types
+
+Some methods are part of the class itself, some are part of the objects that are created from that class, and some are none of the above:
+
+- If there’s no preceding decorator, it’s an instance method, and its first argument should be self to refer to the individual object itself.
+- If there’s a preceding @classmethod decorator, it’s a class method, and its first argument should be cls (or anything, just not the reserved word class), referring to the class itself.
+- If there’s a preceding @staticmethod decorator, it’s a static method, and its first argument isn’t an object or class.
+
+##### Instance Methods
+
+When you see an initial self argument in methods within a class definition, it’s an instance method. These are the types of methods that you would normally write when creating your own classes. The first parameter of an instance method is self, and Python passes the object to the method when you call it. These are the ones that
+you’ve seen so far.
+
+##### Class Methods
+
+In contrast, a class method affects the class as a whole. Any change you make to the class affects all of its objects. Within a class definition, a preceding @classmethod decorator indicates that that following function is a class method. Also, the first parameter to the method is the class itself. The Python tradition is to call the parameter cls, because class is a reserved word and can’t be used here. Let’s define a class method
+for A that counts how many object instances have been made from it:
+
+```python
+> class A():
+>   count = 0
+>   def __init__(self):
+>     A.count += 1
+>   def exclaim(self):
+>     print("I'm an A!")
+>   @classmethod
+>   def kids(cls):
+>     print("A has", cls.count, "little objects.")
+
+> easy_a = A()
+> breezy_a = A()
+> wheezy_a = A()
+> A.kids()
+# A has 3 little objects.
+```
+
+Notice that we referred to A.count (the class attribute) in \*\*init\*\*() rather than self.count (which would be an object instance attribute). In the kids() method, we used cls.count, but we could just as well have used A.count.
+
+##### Static Methods
+
+A third type of method in a class definition affects neither the class nor its objects; it’s just in there for convenience instead of floating around on its own. It’s a static method, preceded by a @staticmethod decorator, with no initial self or cls parameter.
+
+```python
+> class CoyoteWeapon():
+>   @staticmethod
+>   def commercial():
+>     print('This CoyoteWeapon has been brought to you by Acme')
+>
+> CoyoteWeapon.commercial()
+# This CoyoteWeapon has been brought to you by Acme
+```
+
+#### Duck Typing
+
+Python has a loose implementation of polymorphism; it applies the same operation to different objects, based on the method’s name and arguments, regardless of their class.
+
+```python
+> class Quote():
+>   def __init__(self, person, words):
+>     self.person = person
+>     self.words = words
+>   def who(self):
+>     return self.person
+>   def says(self):
+>     return self.words + '.'
+>
+> class QuestionQuote(Quote):
+>   def says(self):
+>     return self.words + '?'
+
+> hunter = Quote('Elmer Fudd', "I'm hunting wabbits")
+> print(hunter.who(), 'says:', hunter.says())
+# Elmer Fudd says: I'm hunting wabbits.
+> hunted1 = QuestionQuote('Bugs Bunny', "What's up, doc")
+> print(hunted1.who(), 'says:', hunted1.says())
+# Bugs Bunny says: What's up, doc?
+```
+
+#### Magic Methods
+
+Python special methods, The names of these methods begin and end with double underscores (\_\_) because They’re very unlikely to have been chosen by programmers as variable names. (dunder)
+
+```python
+> class Word():
+>   def __init__(self, text):
+>     self.text = text
+
+> def equals(self, word2):
+>   return self.text.lower() == word2.text.lower()
+
+> first = Word('ha')
+> second = Word('HA')
+> third = Word('eh')
+> first.equals(second)
+# True
+> first.equals(third)
+# False
+```
+
+Replace equal function with \_\_eq\_\_
+
+```python
+> class Word():
+>   def __init__(self, text):
+>     self.text = text
+>   def __eq__(self, word2):
+>     return self.text.lower() == word2.text.lower()
+```
+
+Magic Mathods for comparision
+
+| Method                  | Description   |
+| :---------------------- | :------------ |
+| \_\_eq\_\_(self, other) | self == other |
+| \_\_ne\_\_(self, other) | self != other |
+| \_\_lt\_\_(self, other) | self < other  |
+| \_\_gt\_\_(self, other) | self > other  |
+| \_\_le\_\_(self, other) | self <= other |
+| \_\_ge\_\_(self, other) | self >= other |
+
+Magic methods for math
+
+| Method                  | Description   |
+| :---------------------- | :------------ |
+| \_\_eq\_\_(self, other) | self == other |
+| \_\_ne\_\_(self, other) | self != other |
+| \_\_lt\_\_(self, other) | self < other  |
+| \_\_gt\_\_(self, other) | self > other  |
+| \_\_le\_\_(self, other) | self <= other |
+| \_\_ge\_\_(self, other) | self >= other |
+
+Miscellaneous magic methods
+
+| Method               | Description  |
+| :------------------- | :----------- |
+| \_\_str\_\_( self )  | str( self )  |
+| \_\_repr\_\_( self ) | repr( self ) |
+| \_\_len\_\_( self )  | len( self )  |
+
+If you fail to define either \_\_str\_\_() or \_\_repr\_\_(), you get Python’s default string version of your object:
+
+```python
+> first = Word('ha')
+> first
+# <__main__.Word object at 0x1006ba3d0>
+> print(first)
+# <__main__.Word object at 0x1006ba3d0>
+
+> class Word():
+>   def __init__(self, text):
+>     self.text = text
+>   def __eq__(self, word2):
+>     return self.text.lower() == word2.text.lower()
+>   def __str__(self):
+>     return self.text
+>   def __repr__(self):
+>     return 'Word("' + self.text + '")'
+
+> first = Word('ha')
+> first # uses __repr__
+# Word("ha")
+> print(first) # uses __str__
+# ha
+```
+
+Other python magic functions: http://bit.ly/pydocs-smn
+
+### Aggregatoin and Composition
+
+Unline inheritance, composiotion is not a type of the parent class but a part of the parent class
+
+```python
+> class Bill():
+>   def __init__(self, description):
+>     self.description = description
+> class Tail():
+>   def __init__(self, length):
+>     self.length = length
+> class Duck():
+>   def __init__(self, bill, tail):
+>     self.bill = bill
+>     self.tail = tail
+>   def about(self):
+>     print('This duck has a', self.bill.description, 'bill and a', self.tail.length, 'tail')
+
+> a_tail = Tail('long')
+> a_bill = Bill('wide orange')
+> duck = Duck(a_bill, a_tail)
+> duck.about()
+# This duck has a wide orange bill and a long tail
+```
+
+### When to Use Objects or Something Else
+
+- Objects are most useful when you need a number of individual instances that have similar behavior (methods), but differ in their internal states (attributes).
+- If you have a number of variables that contain multiple values and can be passed as arguments to multiple functions, it might be better to define them as classes.
+
+#### Dataclasses
+
+```python
+> class TeenyClass():
+>   def __init__(self, name):
+>     self.name = name
+
+> teeny = TeenyClass('itsy')
+> teeny.name
+# 'itsy'
+
+> from dataclasses import dataclass
+> @dataclass
+> class AnimalClass:
+>   name: str
+>   habitat: str
+>   teeth: int = 0
+
+> snowman = AnimalClass('yeti', 'Himalayas', 46)
+> duck = AnimalClass(habitat='lake', name='duck')
+> snowman
+# AnimalClass(name='yeti', habitat='Himalayas', teeth=46)
+> duck
+# AnimalClass(name='duck', habitat='lake', teeth=0)
+```
+
+## Modules
+
+A module is just a file of any Python code. You don’t need to do anything special—any Python code can be used as a module by others. We refer to code of other modules by using the Python import statement.
+
+```python
+# Filename - fast.py
+
+> from random import choice
+
+> places = ['McDonalds", "KFC", "Burger King", "Taco Bell", "Wendys", "Arbys", "Pizza Hut"]
+> def pick(): # see the docstring below?
+>   """Return random fast food place"""
+>   return choice(places)
+```
+
+Importing the above file/module from another file
+
+```python
+# Filename - lunch.py
+> import fast
+
+> place = fast.pick()
+> print("Let's go to", place)
+
+> python lunch.py
+# Let's go to Burger King
+```
+
+Import a Module with Another Name
+
+```python
+> import fast as f
+> place = f.pick()
+> print("Let's go to", place)
+
+> from fast import pick as who_cares
+> place = who_cares()
+> print("Let's go to", place)
+
+```
