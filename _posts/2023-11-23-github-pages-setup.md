@@ -1,7 +1,8 @@
 ---
-title: "Github Pages - Jekyll"
+title: "Github Pages Setup - Jekyll"
 date: 2023-11-23
 layout: post
+image: "assets/images/banner/pages-setup.jpg"
 author: jeevan
 ---
 

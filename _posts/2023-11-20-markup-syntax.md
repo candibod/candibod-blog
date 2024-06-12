@@ -3,6 +3,7 @@ title: "Markdown Syntax"
 date: 2023-11-20
 layout: post
 author: jeevan
+image: "assets/images/banner/markdown.jpg"
 categories: [Markdown, tutorial]
 ---
 
