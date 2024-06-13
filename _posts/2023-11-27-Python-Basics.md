@@ -5,7 +5,7 @@ layout: post
 author: jeevan
 categories: [python]
 permalink: /python/:title
-image: "assets/images/banner/python.jpg"
+image: "/assets/images/banner/python.jpg"
 published: true
 ---
 

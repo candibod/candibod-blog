@@ -4,7 +4,7 @@ date: 2023-12-27
 layout: post
 author: jeevan
 categories: [python]
-image: "assets/images/banner/python.jpg"
+image: "/assets/images/banner/python.jpg"
 permalink: /python/:title
 published: false
 ---
