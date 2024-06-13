@@ -9,6 +9,7 @@ $blue: #3d61fd !default;
 /* add additional CSS rules below */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 100px;
 }
 
 body {
@@ -742,4 +743,9 @@ code.hljs {
 .post-container table tr th,
 .post-container table tr td {
   padding: 1rem;
+}
+
+h2 {
+  font-size: 1.8em;
+  text-shadow: 0px 0px transparent, 1px 1px #b9b9b9, 2px 2px #b9b9b9, 3px 3px #b9b9b9, 4px 4px #b9b9b9;
 }

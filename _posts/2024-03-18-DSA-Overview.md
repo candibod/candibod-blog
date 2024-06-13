@@ -5,58 +5,113 @@ layout: post
 author: jeevan
 ---
 
-# DSA Overview
+## Contents
 
-## Contents:
-
-1. Types of Asymptotic Notations (Big O)
-2. [Types of DS](#DsTypes)
-3. How to Pick the right DS
-4. [Problem Solving Techniques](#PSTechniques)
+1. [What is DSA?](#what-is-dsa)
+2. [Asymptotic Notations (Big O)](#types-of-asymptotic-notations)
+3. [Problem Solving Techniques](#problem-solving-techniques)
+4. How to Pick the right DS
 5. [Problem Solving Process](#PSProcess)
-6. [Python Data Structures](#PythonDS)
+6. [DS Implementation](#PythonDS)
+   1. [Array](#PythonDS)
+   2. [Array](#PythonDS)
+   3. [Array](#PythonDS)
+
+## What is DSA?
+
+Data structures are different ways of organizing data on your computer, that can be used efficiently
+
+### Types of DS
+
+Python has 2 types of DS
+
+1. Primitive data types are the simplest forms of data representation(cannot be broken intro simpler data types)
+   1. Built In: **Integer, Float, String, Boolean**
+2. Non-Primitive data types are more complex and can store collections of data.
+   1. Linear: Elements are arranged in a sequential order
+      1. Built In: **List, Tuple**
+      2. User Defined: **Array, LinkedList, Stack, Queue**
+   2. Non-Linear: Elements are not arranged in a sequential order
+      1. Built In: **Set, Dictionary**
+      2. User Defined: **Tree, Graph**
+
+| Primitive                              | Non-Primitive                     |
+| :------------------------------------- | :-------------------------------- |
+| Fixed Size                             | Can shrink or grow                |
+| Represented in memory as simple values | Represented in memory as pointers |
+| Simple                                 | Complex                           |
+
+### A in DSA
+
+Algorithm: Set of instructions to perform a task
+
+To solve a problem,
+
+1. We need to clean the input data or make it easy to perform tasks on it
+2. We need to choose a right data structure for it and should be familiar with implementation and usage
+3. Then decide upon a algorithm to solve the problem
+
+### Why are algorithms better than brute force
+
+- Efficient
+- Accuracy
 
 ## Types of Asymptotic Notations
 
-### Theta - Θ
+Asymptotic Notation is used to describe the running time(efficiency) of an algorithm that don’t depend on machine-specific constants
 
-Lower bound of an algorithm
+There are mainly three asymptotic notations:
 
-### Omega - Ω
+1. Theta - Θ
+   - It represents the upper and the lower bound of the running time of an algorithm & used for analyzing the average-case complexity of an algorithm.
+2. Omega - Ω
+   - It represents the lower bound of the running time of an algorithm & provides the best case complexity of an algorithm
+3. Big-O - O
+   - It represents the upper bound of the running time of an algorithm & gives the worst-case complexity of an algorithm.
 
-Average case complexity of an algorithm
+### Runtime Complexities
 
-### Big-O - O
+![Runtime Complexities](/assets/images/runtime-complexities.jpg)
 
-Upper bound of an algorithm
+Most Efficient/Constant time complexity - A constant-time complexity is O(1)
 
-- Most Efficient/Constant time complexity
-  - A constant-time complexity is O(1)
-- Good
-  - A logarithmic complexity is Log(N)
-- Fair/Linear Time Complexity
-  - A linear time Complexity is O(N)
-- Bad
-  - A super-linear time complexity is O(N\*Log(N))
-- Most inefficient
-  - A quadratic-time Complexity is O(N^2) or O(N^k) or O(2^N) or O(N!)
+```python
+def square(n):
+  return n * n
+```
 
-## Types of Data Structures<a id="DsTypes">:</a>
+Good - A logarithmic complexity is Log(N)
 
-- Arrays and Lists
-- 2D Arrays
-- Strings
-- Linked List
-- Stack
-- Queue
-- Hash Table & Hash Set
-- Heap
-- Graphs
-- Binary Tree
-- Binary Search Tree
-- Trie
+```python
 
-## Problem Solving Techniques<a id="PSTechniques">:</a>
+```
+
+Fair/Linear Time Complexity - A linear time Complexity is O(N) (As the input grows runtime increases along with it)
+
+```python
+for i in range(n):
+  print(n * n)
+
+# Even if the function doesn't execute anything inside, code will still loop through
+for i in range(n):
+  print("Nothing happens here")
+```
+
+Bad - A super-linear time complexity is O(N\*Log(N))
+
+```python
+
+```
+
+Most inefficient - A quadratic-time Complexity is O(N^2) or O(N^k) or O(2^N) or O(N!)
+
+```python
+for i in range(n):
+  for j in range(n):
+    print(i + j)
+```
+
+### Problem Solving Techniques
 
 - Pointer based
   - Two/Three pointer
@@ -79,6 +134,7 @@ Upper bound of an algorithm
   - Lexicographic ordering
 - Trees
   - Binary trees & Binary search trees
+  - Trie
   - Traversals like Inorder, preorder, postorder, and morris traversal (both iterative & recursive)
 - Graphs
   - Topological sort, cycle detection, minimum spanning tree (MST)
