@@ -3,6 +3,7 @@ title: "DSA Overview"
 date: 2023-03-18
 layout: post
 author: jeevan
+image: "assets/images/banner/dsa.jpg"
 ---
 
 ## Contents

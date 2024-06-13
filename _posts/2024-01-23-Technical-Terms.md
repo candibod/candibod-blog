@@ -3,6 +3,7 @@ title: "Technical Terms"
 date: 2023-01-23
 layout: post
 author: jeevan
+image: "assets/images/banner/tech.jpg"
 ---
 
 Technical Terms
