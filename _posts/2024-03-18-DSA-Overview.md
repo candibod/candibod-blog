@@ -251,19 +251,19 @@ np_demo_array = np.array([], dtype=int) # Empty Array
 np_demo_array = np.array([1,2,3,4])
 ```
 
-_Operations Complexity_:
+**Operations Complexity**:
 
 Time Complexity
 
-- Empty Array &#8594; **O(1)**
-- n elements Array &#8594; **O(n)**
+- Empty Array &rarr; **O(1)**
+- n elements Array &rarr; **O(n)**
 
 Space Complexity
 
-- Empty Array &#8594; **O(1)**
-- n elements Array &#8594; **O(n)**
+- Empty Array &rarr; **O(1)**
+- n elements Array &rarr; **O(n)**
 
-**Insertion**:
+#### Insertion {#array-insertion}
 
 ```python
 demo_array = array.array('i', [1,2,3,4])
@@ -272,11 +272,11 @@ print(demo_array)
 # array('i', [1, 6, 2, 3, 4])
 ```
 
-_Operations Complexity_:
+**Operations Complexity**:
 
-Time Complexity &#8594; **O(n)** - Since we need to shift all the elements one position to the right if we are inserting the new element in the first position
+Time Complexity &rarr; **O(n)** - Since we need to shift all the elements one position to the right if we are inserting the new element in the first position
 
-Space Complexity &#8594; **O(1)**
+Space Complexity &rarr; **O(1)**
 
 > What if the next block of memory is not available in the memory?
 >
@@ -285,20 +285,20 @@ Space Complexity &#8594; **O(1)**
 > - Free old area
 > - Additional small operations done anyway (like size (counters) update, ...)
 
-**Traverse**:
+#### Traverse {#array-traverse}
 
 ```python
 for i in demo_array:
   print(i)
 ```
 
-_Operations Complexity_:
+**Operations Complexity**:
 
-Time Complexity &#8594; **O(n)** - Since we need to shift all the elements one position to the right if we are inserting the new element in the first position
+Time Complexity &rarr; **O(n)**
 
-Space Complexity &#8594; **O(1)**
+Space Complexity &rarr; **O(1)**
 
-**Accessing**:
+#### Accessing {#array-access}
 
 Since we know the address of the first element of the array and the index of the element we need, It can sum those and get the exact address we need to access that particular element without traversal
 
@@ -306,13 +306,13 @@ Since we know the address of the first element of the array and the index of the
 demo_array[2]
 ```
 
-_Operations Complexity_:
+**Operations Complexity**:
 
-Time Complexity &#8594; **O(1)**
+Time Complexity &rarr; **O(1)**
 
-Space Complexity &#8594; **O(1)**
+Space Complexity &rarr; **O(1)**
 
-**Searching**:
+#### Searching {#array-search}
 
 Using Linear search
 
@@ -329,13 +329,13 @@ for i in demo_array:
 >
 > range() - It returns iterator rather than the entire list which generates the elements on demand which makes the time and space complexity O(1)
 
-_Operations Complexity_:
+**Operations Complexity**:
 
-Time Complexity &#8594; **O(n)**
+Time Complexity &rarr; **O(n)**
 
-Space Complexity &#8594; **O(1)**
+Space Complexity &rarr; **O(1)**
 
-**Deleting**:
+#### Deleting {#array-delete}
 
 To maintain the efficiency of arrays, we can just simply delete some element in between and leave it, we need to shift all the elements to the left to restore the continuous block of memory
 
@@ -346,26 +346,114 @@ print(array)
 # [10, 20, 40, 50]
 ```
 
-_Operations Complexity_:
+**Operations Complexity**:
 
-Time Complexity &#8594; **O(n)**
+Time Complexity &rarr; **O(n)**
 
-Space Complexity &#8594; **O(1)**
+Space Complexity &rarr; **O(1)**
 
 ### Lists
 
 Collection of data(Might not be of a single data type)
 
+#### Creation {#list-creation}
+
 ```python
-# Creating a List
-demo_list = ['candibod', 'python', 'blog']
-
-# Creating a 2D List
+demo_list = [1, 2, 3]
+demo_list1 = [1, 2, 'blog', 1.5]
+demo_list2 = ['candibod', 'python', 'blog']
 demo_2d_list = [['candibod', 'python'], ['blog']]
-
-# Last element of list
-demo_list[-1]
 ```
+
+**Operations Complexity**:
+
+Time Complexity &rarr; **O(n)**
+
+Space Complexity &rarr; **O(n)**
+
+#### Insertion {#list-insertion}
+
+```python
+demo_list.insert(2, 5)
+# [1, 2, 5, 3]
+```
+
+**Operations Complexity**:
+
+Time Complexity &rarr; **O(n)** - Since we need to shift all the elements one position to the right if we are inserting the new element in the first position
+
+Space Complexity &rarr; **O(1)**
+
+#### Update {#list-update}
+
+```python
+demo_list[2] = 40
+# [1, 2, 40, 3]
+```
+
+**Operations Complexity**:
+
+Time Complexity &rarr; **O(1)**
+
+Space Complexity &rarr; **O(1)**
+
+#### Traverse {#list-traverse}
+
+```python
+for i in demo_list:
+  print(i)
+```
+
+**Operations Complexity**:
+
+Time Complexity &rarr; **O(n)**
+
+Space Complexity &rarr; **O(1)**
+
+#### Accessing {#list-access}
+
+```python
+demo_array[2]
+```
+
+**Operations Complexity**:
+
+Time Complexity &rarr; **O(1)**
+
+Space Complexity &rarr; **O(1)**
+
+#### Searching {#list-search}
+
+Using Linear search
+
+```python
+search = 30
+if search in demo_list:
+  print("found")
+```
+
+**Operations Complexity**:
+
+Time Complexity &rarr; **O(n)**
+
+Space Complexity &rarr; **O(1)**
+
+#### Deleting {#list-delete}
+
+```python
+demo_list.pop(1)
+# 2
+
+del demo_list[0]
+
+demo_list.remove(40)
+```
+
+**Operations Complexity**:
+
+Time Complexity &rarr; **O(n)**
+
+Space Complexity &rarr; **O(1)**
 
 ### Tuple
 
