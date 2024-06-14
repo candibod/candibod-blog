@@ -319,8 +319,8 @@ span.post-read-more a:hover {
   margin-bottom: 1.5rem;
 }
 .article-post {
-  font-size: 1.18em;
-  line-height: 1.64;
+  font-size: 1.05em;
+  line-height: 1.6;
   color: rgba(0, 0, 0, 0.8);
   code {
     font-size: 15px;
@@ -746,6 +746,23 @@ code.hljs {
 }
 
 .post-container h2 {
-  font-size: 1.8em;
+  font-size: 2.1em;
   text-shadow: 0px 0px transparent, 1px 1px #b9b9b9, 2px 2px #b9b9b9, 3px 3px #b9b9b9, 4px 4px #b9b9b9;
+}
+
+h3,
+.h3 {
+  text-decoration: underline;
+  font-size: 1.75rem;
+}
+
+h4,
+.h4 {
+  color: #454545;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+dd {
+  margin-bottom: 1rem;
 }

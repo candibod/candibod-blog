@@ -35,11 +35,35 @@ Strike Off: ~~Strike Off~~ <br>
 Subscript: This is a <sub>subscript</sub> text <br>
 Superscript: This is a <sup>superscript</sup> text
 
+## Blockquote
+
 > Text that is a quote
+
+With other elements
+
+> ### The quarterly results look great!
+>
+> - Revenue was off the chart.
+> - Profits were higher than ever.
+>
+>   _Everything_ is going according to **plan**.
+
+## Horizontal line
+
+---
+
+## Highlight
+
+I need to highlight these ==very important words==.
+
+## Custom Heading
+
+### My Great Heading {#custom-id}
 
 ## Code Block
 
-Code block <br>
+Code block
+
 `single line`
 
 Code block - Multiple lines
@@ -95,7 +119,7 @@ Nested List
 
 ## Goto Statement/References
 
-The **go to** statement should be abolished [[1]](#1).
+The **go to** statement should be abolished [[1]](#references).
 
 ## Mention People
 
@@ -103,7 +127,7 @@ The **go to** statement should be abolished [[1]](#1).
 
 ## Emojis
 
-@octocat :+1: This PR looks great - it's ready to merge! :shipit:
+@octocat :+1: This PR looks great - it's ready to merge! :shipit: :joy:
 
 For a full list of available emoji and codes, see the [Emoji-Cheat-Sheet](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md).
 
@@ -138,11 +162,8 @@ Use this space to list resources you find helpful and would like to give credit 
 
 ## References
 
-<a id="1">[1]</a>
-Github official docs - [Link](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#section-links)
+[1] [Basic Syntax](https://www.markdownguide.org/basic-syntax/)
 
-<a id="2">[2]</a>
-Personal Blog - [Link](https://github.com/othneildrew/Best-README-Template/blob/master/README.md)
+[2] [Extended Syntax](https://www.markdownguide.org/extended-syntax/)
 
-<a id="3">[3]</a>
-Personal blog - [Link](https://www.markdownguide.org/basic-syntax/)
+[3] [Github official docs](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#section-links)

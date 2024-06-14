@@ -1,5 +1,5 @@
 ---
-title: "Python List Functions"
+title: "Python DS Functions"
 date: 2023-11-23
 layout: post
 author: jeevan
@@ -9,10 +9,65 @@ categories: [python]
 permalink: /python/:title
 ---
 
+## Arrays
+
+Import
+: `import array`
+
+Creation
+: `demo_array = array.array("i", [10, 20, 30, 40, 50])`
+
+Insertion
+: `demo_array.insert(5, 60)`
+
+Append &rarr; add at the end of the array
+: `demo_array.append(70)`
+
+Extend
+: `demo_array1.extend(demo_array)`
+
+Remove
+: `demo_array.remove(40)`
+
+pop &rarr; remove last element
+: `demo_array.pop() # 70`
+
+Searching
+: `demo_array.index(60) # 4`
+
+Traverse
+: `for i in demo_array: print(i)`
+
+Traverse with index
+: `for i in range(len(demo_array)): print(demo_array[i])`
+
+Accessing
+: `array[2]`
+
+Reverse
+: `demo_array.reverse()`
+
+buffer_info &rarr; returns the start address and length
+: `print(demo_array.buffer_info()) # (2186174443952, 5)`
+
+count &rarr; no of occurrences of the element
+: `demo_array.count(60) # 1`
+
+Convert List to Array
+: `demo_array.tolist()`
+
+Append List to Array &rarr; Will append to the existing list
+: `demo_array.fromList([1, 2, 3])`
+
+Slice
+: `demo_array[1:4]`, `demo_array[1:]`, `demo_array[:4]`, `demo_array[:]`
+
+## Lists
+
 Uncover the power of manipulating lists in Python. Learn essential functions to simplify your code and boost your programming skills effortlessly
 
 > Lists are mutable
-
+>
 > Lists are heterogeneous, it may contain data types like Integers, Strings, as well as Objects.
 
 ## Declare Empty List

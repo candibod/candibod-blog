@@ -12,11 +12,11 @@ image: "assets/images/banner/dsa.jpg"
 2. [Asymptotic Notations (Big O)](#types-of-asymptotic-notations)
 3. [Problem Solving Techniques](#problem-solving-techniques)
 4. How to Pick the right DS
-5. [Problem Solving Process](#PSProcess)
-6. [DS Implementation](#PythonDS)
-   1. [Array](#PythonDS)
-   2. [Array](#PythonDS)
-   3. [Array](#PythonDS)
+5. [Problem Solving Process](#problem-solving-steps)
+6. [DS Implementation](#ds-implementation)
+   1. [Array](#array)
+   2. [List](#lists)
+   3. [Tuple](#tuple)
 
 ## What is DSA?
 
@@ -150,7 +150,7 @@ for i in range(n):
 - Number theory
 - Dequeue
 
-## Problem Solving Steps<a id="PSProcess">:</a>
+## Problem Solving Steps
 
 - Understand the problem.
 - Create a step-by-step plan for how you’ll solve it.
@@ -162,55 +162,55 @@ for i in range(n):
 - We need to switch the elements inside the DS
 - We need to update the elements once those are traversed, if we don't use those elements again
 
-## Top 5 Data Structures from 127 interviews:
+## Top 5 Data Structures from 127 interviews
 
 1. Graph
    - Think Graph when you see entities and relationships
-   - Bus Routes: https://lnkd.in/gP8dKC_N
+   - Bus Routes: [Example](https://lnkd.in/gP8dKC_N)
 2. Stack and Queue
    - Think Stack and Queue when you need to store information of a window
-   - Largest Rectangle in Histogram: https://lnkd.in/gvKUB_YA
+   - Largest Rectangle in Histogram: [Example](https://lnkd.in/gvKUB_YA)
 3. Hash Map
    - Think Hash Map when you want fast lookups at the cost of extra space
-   - Two Sum: https://lnkd.in/gA7h3KXk
+   - Two Sum: [Example](https://lnkd.in/gA7h3KXk)
 4. Binary Tree
    - Think recursion for Binary Tree problems
-   - Lowest Common Ancestor: https://lnkd.in/gjXScf4m
+   - Lowest Common Ancestor: [Example](https://lnkd.in/gjXScf4m)
 5. Heap
    - Think Heap when you want maximum or minimum fast
-   - k Most Frequent Elements in an Array: https://lnkd.in/g3T6BTqX
+   - k Most Frequent Elements in an Array: [Example](https://lnkd.in/g3T6BTqX)
 
 There are always exceptions to the rules but it's good to have a starting point
 
-## Process:
+## Process
 
-### Classification by Implementation Method:
+### Classification by Implementation Method
 
 1. Recursion or Iteration: A recursive algorithm is an algorithm which calls itself again and again until a base condition is achieved whereas iterative algorithms use loops and/or data structures like stacks, queues to solve any problem. Every recursive solution can be implemented as an iterative solution and vice versa.
 2. Exact or Approximate: Algorithms that are capable of finding an optimal solution for any problem are known as the exact algorithm. For all those problems, where it is not possible to find the most optimized solution, an approximation algorithm is used. Approximate algorithms are the type of algorithms that find the result as an average outcome of sub outcomes to a problem.
-3. Serial or Parallel or Distributed Algorithms: In serial algorithms, one instruction is executed at a time while parallel algorithms are those in which we divide the problem into subproblems and execute them on different processors. If parallel algorithms are distributed on different machines, then they are known as distributed algorithms.
+3. Serial or Parallel or Distributed Algorithms: In serial algorithms, one instruction is executed at a time while parallel algorithms are those in which we divide the problem into sub-problems and execute them on different processors. If parallel algorithms are distributed on different machines, then they are known as distributed algorithms.
 
-### Classification by Design Method:
+### Classification by Design Method
 
 1. Greedy Method: In the greedy method, at each step, a decision is made to choose the local optimum, without thinking about the future consequences.
 2. Divide and Conquer: The Divide and Conquer strategy involves dividing the problem into sub-problem, recursively solving them, and then recombining them for the final answer.
-3. Dynamic Programming: The approach of Dynamic programming is similar to divide and conquer. The difference is that whenever we have recursive function calls with the same result, instead of calling them again we try to store the result in a data structure in the form of a table and retrieve the results from the table. Thus, the overall time complexity is reduced. “Dynamic” means we dynamically decide whether to call a function or retrieve values from the table.<br>
+3. Dynamic Programming: The approach of Dynamic programming is similar to divide and conquer. The difference is that whenever we have recursive function calls with the same result, instead of calling them again we try to store the result in a data structure in the form of a table and retrieve the results from the table. Thus, the overall time complexity is reduced. “Dynamic” means we dynamically decide whether to call a function or retrieve values from the table.
    Example: 0-1 Knapsack, subset-sum problem.
-4. Linear Programming: In Linear Programming, there are inequalities in terms of inputs and maximizing or minimizing some linear functions of inputs.<br>
+4. Linear Programming: In Linear Programming, there are inequalities in terms of inputs and maximizing or minimizing some linear functions of inputs.
    Example: Maximum flow of Directed Graph
-5. Reduction(Transform and Conquer): In this method, we solve a difficult problem by transforming it into a known problem for which we have an optimal solution. Basically, the goal is to find a reducing algorithm whose complexity is not dominated by the resulting reduced algorithms.<br>
+5. Reduction(Transform and Conquer): In this method, we solve a difficult problem by transforming it into a known problem for which we have an optimal solution. Basically, the goal is to find a reducing algorithm whose complexity is not dominated by the resulting reduced algorithms.
    Example: Selection algorithm for finding the median in a list involves first sorting the list and then finding out the middle element in the sorted list. These techniques are also called transform and conquer.
-6. Backtracking: This technique is very useful in solving combinatorial problems that have a single unique solution. Where we have to find the correct combination of steps that lead to fulfillment of the task. Such problems have multiple stages and there are multiple options at each stage. This approach is based on exploring each available option at every stage one-by-one. While exploring an option if a point is reached that doesn’t seem to lead to the solution, the program control backtracks one step, and starts exploring the next option. In this way, the program explores all possible course of actions and finds the route that leads to the solution.<br>
+6. Backtracking: This technique is very useful in solving combinatorial problems that have a single unique solution. Where we have to find the correct combination of steps that lead to fulfillment of the task. Such problems have multiple stages and there are multiple options at each stage. This approach is based on exploring each available option at every stage one-by-one. While exploring an option if a point is reached that doesn’t seem to lead to the solution, the program control backtracks one step, and starts exploring the next option. In this way, the program explores all possible course of actions and finds the route that leads to the solution.
    Example: N-queen problem, maize problem.
-7. Branch and Bound: This technique is very useful in solving combinatorial optimization problem that have multiple solutions and we are interested in find the most optimum solution. In this approach, the entire solution space is represented in the form of a state space tree. As the program progresses each state combination is explored, and the previous solution is replaced by new one if it is not the optimal than the current solution.<br>
-   Example: Job sequencing, Travelling salesman problem.
+7. Branch and Bound: This technique is very useful in solving combinatorial optimization problem that have multiple solutions and we are interested in find the most optimum solution. In this approach, the entire solution space is represented in the form of a state space tree. As the program progresses each state combination is explored, and the previous solution is replaced by new one if it is not the optimal than the current solution.
+   Example: Job sequencing, Traveling salesman problem.
 
 ### Classification by Design Approaches : There are two approaches for designing an algorithm. these approaches include
 
 1. Top-Down Approach: In the top-down approach, a large problem is divided into small sub-problem. and keep repeating the process of decomposing problems until the complex problem is solved.
 2. Bottom-up Approach: The bottom-up approach is also known as the reverse of top-down approaches. In approach different, part of a complex program is solved using a programming language and then this is combined into a complete program.
 
-## Python Data Structures<a id="PythonDS">:</a>
+## DS Implementation
 
 - Complexity?
 - Storage?
@@ -220,16 +220,137 @@ There are always exceptions to the rules but it's good to have a starting point
 
 More memory efficient compared to list, since they are stored in continuous blocks of memory rather than using pointers
 
-**Note:** It can be only used, if all the elements in the array of the same data type
+_Note:_ It can be only used, if all the elements in the array of the same data type
+
+#### Creation {#array-creation}
+
+Using built in array library
 
 ```python
 import array
 
+# first parameter 'i' represents that the array will be consisting of integers
+demo_array = array.array('i') # Empty Array
 demo_array = array.array('i', [1,2,3,4])
-
-# Inserting element
-demo_array.insert(1, 6)
 ```
+
+```python
+from array import *
+
+demo_array = array('i') # Empty Array
+demo_array = array('i', [1,2,3,4])
+```
+
+Using Numpy
+
+```python
+import numpy as np
+
+# first parameter 'i' represents that the array will be consisting of integers
+np_demo_array = np.array([], dtype=int) # Empty Array
+np_demo_array = np.array([1,2,3,4])
+```
+
+_Operations Complexity_:
+
+Time Complexity
+
+- Empty Array &#8594; **O(1)**
+- n elements Array &#8594; **O(n)**
+
+Space Complexity
+
+- Empty Array &#8594; **O(1)**
+- n elements Array &#8594; **O(n)**
+
+**Insertion**:
+
+```python
+demo_array = array.array('i', [1,2,3,4])
+demo_array.insert(1, 6)
+print(demo_array)
+# array('i', [1, 6, 2, 3, 4])
+```
+
+_Operations Complexity_:
+
+Time Complexity &#8594; **O(n)** - Since we need to shift all the elements one position to the right if we are inserting the new element in the first position
+
+Space Complexity &#8594; **O(1)**
+
+> What if the next block of memory is not available in the memory?
+>
+> - Allocate memory area (current size + one (element size))
+> - Copy data to the new area
+> - Free old area
+> - Additional small operations done anyway (like size (counters) update, ...)
+
+**Traverse**:
+
+```python
+for i in demo_array:
+  print(i)
+```
+
+_Operations Complexity_:
+
+Time Complexity &#8594; **O(n)** - Since we need to shift all the elements one position to the right if we are inserting the new element in the first position
+
+Space Complexity &#8594; **O(1)**
+
+**Accessing**:
+
+Since we know the address of the first element of the array and the index of the element we need, It can sum those and get the exact address we need to access that particular element without traversal
+
+```python
+demo_array[2]
+```
+
+_Operations Complexity_:
+
+Time Complexity &#8594; **O(1)**
+
+Space Complexity &#8594; **O(1)**
+
+**Searching**:
+
+Using Linear search
+
+```python
+search = 30
+demo_array = array('i', [10, 20, 30, 40, 50])
+for i in demo_array:
+  if i = search:
+    print("found")
+    break
+```
+
+> len() - Retrieve the value of the length that is already stored in the DS
+>
+> range() - It returns iterator rather than the entire list which generates the elements on demand which makes the time and space complexity O(1)
+
+_Operations Complexity_:
+
+Time Complexity &#8594; **O(n)**
+
+Space Complexity &#8594; **O(1)**
+
+**Deleting**:
+
+To maintain the efficiency of arrays, we can just simply delete some element in between and leave it, we need to shift all the elements to the left to restore the continuous block of memory
+
+```python
+demo_array = array.array('i', [10, 20, 30, 40, 50])
+array.remove(2)
+print(array)
+# [10, 20, 40, 50]
+```
+
+_Operations Complexity_:
+
+Time Complexity &#8594; **O(n)**
+
+Space Complexity &#8594; **O(1)**
 
 ### Lists
 
@@ -338,8 +459,8 @@ myDict = {x: x**2 for x in [1,2,3,4,5]}
 
 ## References
 
-[[1]](https://www.enjoyalgorithms.com/blog/problem-solving-approaches-in-data-structures-and-algorithms) Techniques<br>
-[[2]](https://www.enjoyalgorithms.com/blog/steps-of-problem-solving-for-cracking-the-coding-interview) Process<br>
-[[3]](https://www.hackerearth.com/blog/developers/7-steps-to-improve-your-data-structure-and-algorithm-skills/) Process<br>
-[[4]](https://medium.com/enjoy-algorithm/popular-problem-solving-approaches-in-data-structures-and-algorithms-6b4d30a0823d) Examples<br>
-[[5]](https://hackernoon.com/data-structures-and-algorithms-20-problem-solving-techniques-qz1q3z1o) Process + Examples<br>
+[[1]](https://www.enjoyalgorithms.com/blog/problem-solving-approaches-in-data-structures-and-algorithms) Techniques
+[[2]](https://www.enjoyalgorithms.com/blog/steps-of-problem-solving-for-cracking-the-coding-interview) Process
+[[3]](https://www.hackerearth.com/blog/developers/7-steps-to-improve-your-data-structure-and-algorithm-skills/) Process
+[[4]](https://medium.com/enjoy-algorithm/popular-problem-solving-approaches-in-data-structures-and-algorithms-6b4d30a0823d) Examples
+[[5]](https://hackernoon.com/data-structures-and-algorithms-20-problem-solving-techniques-qz1q3z1o) Process + Examples
