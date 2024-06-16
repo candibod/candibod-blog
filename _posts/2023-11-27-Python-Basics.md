@@ -2302,3 +2302,154 @@ Import a Module with Another Name
 > print("Let's go to", place)
 
 ```
+
+## Module vs function
+
+```python
+import test.py
+```
+
+## Miscellaneous
+
+### Iterator
+
+An iterable is anything you're able to iterate over, anything you can write a for loop
+
+Ex: List, Tuple, Sets, String, dictionary, generator, files
+
+```python
+cars = ["vw", "kia"]
+
+for car in cars:
+  print(car)
+
+list('hello world')
+
+for n, car in enumerate(cars):
+    print(n, car)
+
+# With starting index 1
+for n, car in enumerate(cars, start = 1):
+    print(n, car)
+```
+
+### Range
+
+Range objects don't store the value, they compute it on the go
+
+```python
+cars = ["vw", "kia"]
+car_iterator = iter(cars)
+
+```
+
+### Sequence
+
+iterables that can be indexed
+
+### Range vs Iterator
+
+Range object seems like iterator but not iterator
+
+- Iterator will compute its next item if you loop over
+
+```python
+> cars = ["vw", "kia"]
+> car_iterator = iter(cars)
+> for car in car_iterator:
+>   print(car)
+# 'vw'
+# 'kia'
+
+> for car in car_iterator:
+>   print(car)
+# nothing will be printed here since iter has reached its end
+
+> cars1 = range(3)
+> for i in cars1:
+>   print(i)
+# 0
+# 1
+# 2
+
+> for i in cars1:
+>   print(i)
+# 0
+# 1
+# 2
+```
+
+### Reverse
+
+```python
+cars = ["vw", "kia"]
+cars[::-1]
+```
+
+The above slicing syntax works only with DS with index
+
+```python
+cars = ["vw", "kia"]
+cars.reverse()
+
+text = "Hello"
+text.reverse()
+# AttributeError: 'str' object has no attribute 'reverse'
+```
+
+The list reverse method is an in-place operation (modified the original list)
+
+```python
+cars = ["vw", "kia"]
+reverse_cars = cars.copy()
+reverse_cars.reverse()
+for car in reverse_cars:
+  print(car)
+```
+
+Better alternative is using reversed function
+
+```python
+for car in reversed(cars):
+  print(car)
+```
+
+### Sorted
+
+```python
+sorted(cars)
+sorted(reverse=True)
+```
+
+### Else - For
+
+```python
+student_records = [{"name": "jee", "marks": {"a": 80, "b": 60}}, {"name": "jee", "marks": {"a": 80, "b": 80}}]
+
+# Find a candidate with less than 75 marks
+outer_break = False
+for student in student_records:
+  for subject, mark in student["marks"].items():
+    if mark < 75:
+      print(student["name"])
+      outer_break = True
+      break
+
+  if outer_break:
+    break
+```
+
+Can be replaced this with the else - for
+
+```python
+for student in student_records:
+  for subject, mark in student["marks"].items():
+    if mark < 75:
+      print(student["name"])
+      break
+  else:
+    continue
+
+  # Trigger the following break if the inner for-loop triggers break
+  break
+```
