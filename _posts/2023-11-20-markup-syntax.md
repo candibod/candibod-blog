@@ -27,12 +27,22 @@ Infrequently Used
 ###### A sixth-level heading - H6
 ```
 
+## Line Break
+
+This is a
+Markup syntax without line break
+
+This is a \
+Markup syntax with line break
+
 ## Emphasis Text
 
-Bold: **Bold** <br>
-Italic: _Italic_ <br>
-Strike Off: ~~Strike Off~~ <br>
-Subscript: This is a <sub>subscript</sub> text <br>
+Bold: **Bold** \
+Italic: _Italic_ \
+Strike Off: ~~Strike Off~~ \
+Subscript: This is a ~subscript~ text \
+Subscript: This is a <sub>subscript</sub> text \
+Superscript: This is a ^superscript^ text \
 Superscript: This is a <sup>superscript</sup> text
 
 ## Blockquote

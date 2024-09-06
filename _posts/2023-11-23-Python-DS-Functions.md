@@ -1,5 +1,5 @@
 ---
-title: "Python DS Functions"
+title: "Python DS Cheat sheet"
 date: 2023-11-23
 layout: post
 author: jeevan
@@ -181,3 +181,105 @@ List to String
 
 String to List
 : `"".join(['p','y','t','h','o','n']) # python`
+
+## Stack
+
+Using lists
+
+```python
+> stack = []
+
+> stack.append(1)
+> stack.append(2)
+> print(stack)
+# [1,2]
+
+> stack.pop()
+# 2
+```
+
+### Using collections library - Deque {#stack-deque}
+
+Deque is implemented using double linked lists which means append left & pop will take O(1) time complexity. Lists will take O(n) for append left & O(1) for pop, only place lists will be more helpful is when we using slicing operations
+
+```python
+> from collections import deque
+
+> stack = deque()
+
+> stack.append(1)
+> stack.append(2)
+> print(stack)
+# [1,2]
+
+> stack.pop()
+# 2
+```
+
+## Queue
+
+### Using collections library - Deque
+
+Deque is implemented using double linked lists which means append left & pop will take O(1) time complexity. Lists will take O(n) for append left & O(1) for pop, only place lists will be more helpful is when we using slicing operations
+
+```python
+> from collections import deque
+
+> queue = deque([1,2,3,4])
+> print(queue)
+# [1,2,3,4]
+
+> queue.append(5)
+> print(queue)
+# [1,2,3,4,5]
+
+> queue.pop()
+# 5
+
+> queue.appendleft(6)
+> print(queue)
+# [6,1,2,3,4]
+
+> queue.popleft()
+# 6
+
+> queue.reverse()
+> print(queue)
+# [4,3,2,1]
+```
+
+### Heap Queue (heapq)
+
+```python
+> import heapq
+> a = [3, 5, 1, 2, 6, 8, 7]
+
+# If the heap is already arranged, we can skip this skep
+> heapq.heapify(a)
+> a
+# [1, 2, 3, 5, 6, 8, 7]
+
+> heapq.heappush(a, 4)
+> a
+# [1, 2, 3, 4, 6, 8, 7, 5]
+
+> heapq.heappop(a)
+# 1
+
+# Minheap can take tuples & consider the first element to do operations
+> minHeap = [(dist, x, y)]
+> heapq.heapify(minHeap)
+```
+
+## Shallow Copy and Deep Copy
+
+While doing a copy operation, python references child objects in the new DS to the original rather than creating a new one. Deepcopy comes into picture to perform a copy of everything
+
+```python
+import copy
+li1 = [1, 2, [3, 5], 4]
+li2 = copy.copy(li1)
+print("li2 ID: ", id(li2), "Value: ", li2)
+li3 = copy.deepcopy(li1)
+print("li3 ID: ", id(li3), "Value: ", li3)
+```

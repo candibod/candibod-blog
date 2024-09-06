@@ -162,7 +162,7 @@ for i in range(n):
 - We need to switch the elements inside the DS
 - We need to update the elements once those are traversed, if we don't use those elements again
 
-## Top 5 Data Structures from 127 interviews
+### Top 5 Data Structures from 127 interviews
 
 1. Graph
    - Think Graph when you see entities and relationships
@@ -181,8 +181,6 @@ for i in range(n):
    - k Most Frequent Elements in an Array: [Example](https://lnkd.in/g3T6BTqX)
 
 There are always exceptions to the rules but it's good to have a starting point
-
-## Process
 
 ### Classification by Implementation Method
 
@@ -455,6 +453,110 @@ Time Complexity &rarr; **O(n)**
 
 Space Complexity &rarr; **O(1)**
 
+### Dictionary (Hash Table)
+
+Python dictionary is like hash tables in any other language
+
+```python
+# Accessing a element using key
+demo_dict['name']
+
+# Accessing a element using get() method
+demo_dict.get(0)
+
+# creation using Dictionary comprehension
+myDict = {x: x**2 for x in [1,2,3,4,5]}
+# {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+```
+
+Collection of data(Might not be of a single data type)
+
+#### Creation {#dict-creation}
+
+```python
+demo_dict = dict()
+demo_dict = {}
+demo_dict = {'name': 'candibod', 'demo_list': [1, 2, 3, 4]}
+```
+
+**Operations Complexity**:
+
+Time Complexity &rarr; **O(n)**
+
+Space Complexity &rarr; **O(n)**
+
+#### Add/Update {#dict-update}
+
+```python
+demo_list[2] = 40
+# [1, 2, 40, 3]
+```
+
+**Operations Complexity**:
+
+Time Complexity &rarr; **O(1)+**
+: Amortized complexity: Normally adding an item takes constant time (that is, O(1)). But each time the array is full, you allocate twice as much space, copy your data into the new region, and free the old space. Assuming allocates and frees run in constant time, this enlargement process takes O(n) time where n is the current size of the array
+
+Space Complexity &rarr; **O(1)**
+
+#### Traverse {#dict-traverse}
+
+```python
+for i in demo_list:
+  print(i)
+```
+
+**Operations Complexity**:
+
+Time Complexity &rarr; **O(n)**
+
+Space Complexity &rarr; **O(1)**
+
+#### Accessing {#dict-access}
+
+```python
+demo_array[2]
+```
+
+**Operations Complexity**:
+
+Time Complexity &rarr; **O(1)**
+
+Space Complexity &rarr; **O(1)**
+
+#### Searching {#dict-search}
+
+Using Linear search
+
+```python
+search = 30
+if search in demo_list:
+  print("found")
+```
+
+**Operations Complexity**:
+
+Time Complexity &rarr; **O(n)**
+
+Space Complexity &rarr; **O(1)**
+
+#### Deleting {#dict-delete}
+
+```python
+demo_list.pop(1)
+# 2
+
+del demo_list[0]
+
+demo_list.remove(40)
+```
+
+**Operations Complexity**:
+
+Time Complexity &rarr; **O(n)**
+
+Space Complexity &rarr; **O(1)**
+
 ### Tuple
 
 Tuples are immutable
@@ -483,25 +585,6 @@ demo_set = set([1, 2, 'candibod'])
 
 # A frozen set - immutable
 frozen_set = frozenset(["1", "2", "candibod"])
-```
-
-### Dictionary (Hash Table)
-
-Python dictionary is like hash tables in any other language
-
-```python
-# Creating a Dictionary
-demo_dict = {'name': 'candibod', 'demo_list': [1, 2, 3, 4]}
-
-# Accessing a element using key
-demo_dict['name']
-
-# Accessing a element using get() method
-demo_dict.get(0)
-
-# creation using Dictionary comprehension
-myDict = {x: x**2 for x in [1,2,3,4,5]}
-# {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
 ```
 
 ### Strings

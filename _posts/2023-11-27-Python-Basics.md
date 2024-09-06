@@ -247,6 +247,8 @@ Anything else is considered True.
 
 walrus operator: `name := expression`
 
+Assign variables in `if` loops
+
 ```python
 a = 1
 b = 3
@@ -951,7 +953,7 @@ Tip: If you use append() to add new items to the end and pop() to remove them fr
 Q/A:
 
 - is it okay to use del at the end of every function in python to free up space
-  - https://stackoverflow.com/questions/49065803/python-delete-objects-and-free-up-space
+  - <https://stackoverflow.com/questions/49065803/python-delete-objects-and-free-up-space>
 
 ## Dictionary
 
@@ -1034,7 +1036,7 @@ When you want to get all the key-value pairs from a dictionary, use the items()
 # Each key and value is returned as a tuple, such as ('green', 'go').
 ```
 
-#### Combine Dictionaries with {**a, **b}
+#### Combine Dictionaries with {\*\*a,\*\*b}
 
 Starting with Python 3.5, there’s a new way to merge dictionaries, using the \*\* unicorn glitter
 
@@ -2204,7 +2206,7 @@ If you fail to define either \_\_str\_\_() or \_\_repr\_\_(), you get Python’s
 # ha
 ```
 
-Other python magic functions: http://bit.ly/pydocs-smn
+Other python magic functions: <http://bit.ly/pydocs-smn>
 
 ### Aggregatoin and Composition
 
@@ -2303,11 +2305,26 @@ Import a Module with Another Name
 
 ```
 
-## Module vs function
+This expression will not be triggered if we import the file as module, this will work only if we run the file
 
 ```python
-import test.py
+if __name__ == "__main__":
+    print("main trigger")
 ```
+
+Python caches modules after they're imported, so importing the same module twice will return the same module object.
+
+## Package
+
+A Python module created out of a directory (instead of a single .py file). Python packages are created by making a directory containing a **init**.py file (see What's **init**.py). Python packages can contain submodules (via other .py files within the package directory) and subpackages (via other package directories within the package directory).
+
+Not to be confused with an installable Python package, which is a bundle of one or more packages (usually just one) which is usually installed from the Python package index (PyPI). See installing Python packages for more on installable packages.
+
+## Library
+
+The modules and packages that are distributed with Python (and to be part of considered) are collectively called "the Python standard library". The Python standard library includes math, datetime, re, sys, pathlib, collections, itertools, functools, statistics, and dozens of other libraries.
+
+The documentation contains a full list of Python's standard library modules. Doug Hellman's Python Module of the Week includes additional explanations of many popular standard library modules.
 
 ## Miscellaneous
 
@@ -2453,3 +2470,38 @@ for student in student_records:
   # Trigger the following break if the inner for-loop triggers break
   break
 ```
+
+### Functions are objects
+
+```python
+> def drive(name="vw"):
+>  """Help text"""
+>  print(name)
+
+# we can point variable to the function
+> a = drive
+> a.__defaults__ # function has attributes
+```
+
+### Unpacking Iterables
+
+```python
+cars = ['vw', 'kia']
+numbers = (1, 2)
+
+new_list = [*cars, *numbers]
+```
+
+### Module Vs Library Vs Package
+
+These terms are about importing code from other files and creating Python files that are meant to be imported.
+
+## Arithmetic Operations
+
+### List
+
+### Tuple
+
+### Dict
+
+### Set
