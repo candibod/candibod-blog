@@ -182,6 +182,38 @@ List to String
 String to List
 : `"".join(['p','y','t','h','o','n']) # python`
 
+### Binary Search
+
+Binary search only works if the list is sorted
+
+```python
+> search_num = 4
+> numbers = [1,3,4,5,6,7,8,9,10]
+
+> index = -1
+> l, r = 0, len(numbers) - 1
+> while l <= r:
+>  mid = l + ((r - l) // 2)
+>  if numbers[mid] < search_num:
+>   l = mid + 1
+>  elif numbers[mid] > search_num:
+>   r = mid - 1
+>  else:
+>   index = mid
+>   break
+> print(index)
+```
+
+Python bisect library uses binary search for the function bisect_left, it will helpful for the coding interviews
+
+```python
+> search_num = 4
+> numbers = [1,3,4,5,6,7,8,9,10]
+
+> import bisect
+> print(bisect.bisect_left(numbers, search_num))
+```
+
 ## Stack
 
 Using lists

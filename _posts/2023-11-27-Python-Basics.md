@@ -9,24 +9,7 @@ image: "/assets/images/banner/python.jpg"
 published: true
 ---
 
-# Python Quick Reference
-
 python program is given access to some of your computer's memory by the OS, that memory is used for the code of the program itself and the data that it uses. The operating system ensures that the program cannot read or write other memory locations without somehow getting permissions
-
-#### Q/A
-
-- how much memory will it allocate?
-- Note that the size and layout of an object is purely implementation-specific. CPython, for example, may use totally different internal data structures than IronPython. So the size of an object may vary from implementation to implementation.
-
-```python
-> from sys import getsizeof
-> a = 42
-> getsizeof(a)
-```
-
-- what if we need more memory?
-- Python will manage it
-- how to give access to other memory locations?
 
 Some languages like C/C++, plunk(change) and plunk the raw values in memory, keeping track of the size and types. Instead of handling such raw data values directly. python wraps each data value-booleans, integers, floats, strings, event large data structures, functions, and programs in memory as an object.
 
@@ -37,7 +20,38 @@ In Python, an object is a chunk of data that contains at least the following:
 - A value consistent with its type
 - A reference count that tracks how often this object is used
 
-## Types
+## Data Types
+
+### Primitive
+
+Primitive data types are fundamental data types that can't be broken down into simpler data types
+
+- Integers
+- Float
+- Strings
+- Boolean
+
+### Non-Primitive
+
+Non Primitive data types store values, as well as a collection of values, in varying formats
+
+- Arrays
+- Lists
+- Tuples
+- Dictionary
+- Sets
+
+### Data types vs Data Structures
+
+In python there are 6 basic data types (int, float, complex, bool, string and bytes). data structures are just data types that can contain multiple data types within them, on which tasks can be done efficiently.
+
+### Abstract Data Type (ADT)
+
+An abstract data type (ADT) is a high-level description of a data structure and its associated operations, It defines what the data structure can do, but not how it does it
+
+ADT of a defines stack data structure with push and pop operations, can be implemented using a list or a linked list
+
+### All Types
 
 | Name           | Type      | Mutable | Examples                              |
 | :------------- | :-------- | :------ | ------------------------------------- |
@@ -1788,6 +1802,7 @@ Inheritance allows us to define a class that inherits all the methods and proper
 # "John", "Doe"
 
 
+
 > class Student(Person):
 >   pass # Use the pass keyword when you do not want to add any other properties or methods to the class.
 
@@ -1815,7 +1830,7 @@ If We want to add the \_\_init\_\_() function to the child class (instead of the
 
 To keep the inheritance of the parent's \_\_init\_\_() function, add a call to the parent's \_\_init\_\_() function:
 
-```
+```python
 class Student(Person):
   def __init__(self, fname, lname):
     Person.__init__(self, fname, lname)
@@ -1823,7 +1838,7 @@ class Student(Person):
 
 By using the super() function, you do not have to use the name of the parent element, it will automatically inherit the methods and properties from its parent.
 
-```
+```python
 class Student(Person):
   def __init__(self, fname, lname):
     super().__init__(fname, lname)
@@ -1878,6 +1893,179 @@ The difference is subtle, but in the above examples, the mixin classes weren't m
 > class Request(AcceptMixin, ETagRequestMixin, UserAgentMixin, AuthenticationMixin, BaseRequest):
 >    pass
 ```
+
+### Abstraction
+
+Abstraction is the process of simplifying complex reality by modeling classes based on their characteristics and ignoring irrelevant details. Abstract classes cannot be instantiated and are meant to be subclassed, while interfaces define a contract that classes must adhere to.
+
+Absract Classes cannot be instantiated
+
+```python
+from abc import ABC,abstractmethod
+
+class Vehicle(ABC):
+    @abstractmethod
+    def capacity(self):
+        pass
+
+> t = Vehicle()
+# Can't instantiate abstract class Vehicle with abstract method capacity
+```
+
+To define an abstract method we use the @abstractmethod decorator of the abc module. It tells Python that the declared method is abstract and should be overridden in the child classes.
+
+```python
+from abc import ABC,abstractmethod
+
+class Vehicle(ABC):
+    @abstractmethod
+    def capacity(self):
+        pass
+
+class Car(Vehicle):
+    def capacity(self):
+        print("5 Seater")
+
+class Bus(Vehicle):
+    def capacity(self):
+        print("50 Seater")
+
+> car = Car()
+> car.capacity()
+# 5 Seater
+
+> bus = Bus()
+> bus.capacity()
+# 50 Seater
+```
+
+Invoke Methods from Abstract Classes
+
+```python
+from abc import ABC,abstractmethod
+
+class Vehicle(ABC):
+    @abstractmethod
+    def capacity(self):
+        print("Capacity")
+
+class Car(Vehicle):
+    def capacity(self):
+        super().capacity()
+        print("5 Seater")
+
+class Bus(Vehicle):
+    def capacity(self):
+        super().capacity()
+        print("50 Seater")
+
+> car = Car()
+> car.capacity()
+# Capacity
+# 5 Seater
+
+> bus = Bus()
+> bus.capacity()
+# Capacity
+# 50 Seater
+```
+
+#### Example
+
+```python
+from abc import ABC, abstractmethod
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.datasets import load_iris
+
+class ModelEvaluator(ABC):
+    def __init__(self, X, y, test_size=0.2, random_state=42):
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
+        self.model = None
+
+    @abstractmethod
+    def train_model(self):
+        pass
+
+    @abstractmethod
+    def predict(self):
+        pass
+
+    # Concrete(normal) method
+    def evaluate_model(self):
+        predictions = self.predict()
+        accuracy = accuracy_score(self.y_test, predictions)
+        print(f"Model Accuracy: {accuracy}")
+
+
+class LogisticRegressionEvaluator(ModelEvaluator):
+    def train_model(self):
+        self.model = LogisticRegression(max_iter=200)
+        self.model.fit(self.X_train, self.y_train)
+
+    def predict(self):
+        return self.model.predict(self.X_test)
+
+
+
+class DecisionTreeEvaluator(ModelEvaluator):
+    def train_model(self):
+        self.model = DecisionTreeClassifier()
+        self.model.fit(self.X_train, self.y_train)
+
+    def predict(self):
+        return self.model.predict(self.X_test)
+
+
+
+iris = load_iris()
+X, y = iris.data, iris.target
+
+# Evaluate Logistic Regression
+print("Evaluating Logistic Regression:")
+logistic_evaluator = LogisticRegressionEvaluator(X, y)
+logistic_evaluator.train_model()
+logistic_evaluator.evaluate_model()
+
+# Evaluate Decision Tree
+print("\nEvaluating Decision Tree:")
+decision_tree_evaluator = DecisionTreeEvaluator(X, y)
+decision_tree_evaluator.train_model()
+decision_tree_evaluator.evaluate_model()
+```
+
+### Interface
+
+Specifies a set of methods a class must implement; methods are abstract by default.
+
+Python doesn't have (and doesn't need) a formal Interface contract. If someone goes through the effort to define a formal interface, it will also be an abstract class.
+
+Java uses interfaces because it doesn't have multiple inheritance.
+
+Because Python has multiple inheritance, you may also see something like this
+
+```python
+class SomeAbstraction:
+    pass  # lots of stuff - but missing something
+
+class Mixin1:
+    def something(self):
+        pass  # one implementation
+
+class Mixin2:
+    def something(self):
+        pass  # another
+
+class Concrete1(SomeAbstraction, Mixin1):
+    pass
+
+class Concrete2(SomeAbstraction, Mixin2):
+    pass
+```
+
+This uses a kind of abstract superclass with mixins to create concrete subclasses that are disjoint.
 
 ### Attribute Access
 
@@ -2492,9 +2680,19 @@ numbers = (1, 2)
 new_list = [*cars, *numbers]
 ```
 
-### Module Vs Library Vs Package
+### User Input
 
-These terms are about importing code from other files and creating Python files that are meant to be imported.
+```python
+> name = input("Enter Your Name: ")
+# Enter Your Name: Candibod
+> print(name)
+# Candibod
+
+age = int(input("Enter Your Age: "))
+# Enter Your Age: 12
+> print(age)
+# 12
+```
 
 ## Arithmetic Operations
 
@@ -2505,3 +2703,18 @@ These terms are about importing code from other files and creating Python files 
 ### Dict
 
 ### Set
+
+## Q/A
+
+- how much memory will it allocate?
+- Note that the size and layout of an object is purely implementation-specific. CPython, for example, may use totally different internal data structures than IronPython. So the size of an object may vary from implementation to implementation.
+
+```python
+> from sys import getsizeof
+> a = 42
+> getsizeof(a)
+```
+
+- what if we need more memory?
+- Python will manage it
+- how to give access to other memory locations?
